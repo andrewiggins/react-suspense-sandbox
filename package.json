@@ -1,0 +1,25 @@
+{
+  "name": "react-suspense-sandbox",
+  "version": "1.0.0",
+  "description": "Sandbox for playing around with React suspense",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewiggins/react-suspense-sandbox.git"
+  },
+  "keywords": [
+    "react",
+    "suspense",
+    "async",
+    "async-text"
+  ],
+  "author": "Andre Wiggins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrewiggins/react-suspense-sandbox/issues"
+  },
+  "homepage": "https://github.com/andrewiggins/react-suspense-sandbox#readme"
+}
