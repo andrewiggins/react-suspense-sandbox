@@ -4,7 +4,8 @@
   "description": "Sandbox for playing around with React suspense",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack-cli --config webpack.config.js",
+    "start": "webpack-serve --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,15 @@
   "bugs": {
     "url": "https://github.com/andrewiggins/react-suspense-sandbox/issues"
   },
-  "homepage": "https://github.com/andrewiggins/react-suspense-sandbox#readme"
+  "homepage": "https://github.com/andrewiggins/react-suspense-sandbox#readme",
+  "devDependencies": {
+    "@types/react": "^16.4.6",
+    "@types/react-dom": "^16.0.6",
+    "html-webpack-plugin": "^3.2.0",
+    "ts-loader": "^4.4.2",
+    "typescript": "^2.9.2",
+    "webpack": "^4.15.1",
+    "webpack-cli": "^3.0.8",
+    "webpack-serve": "^1.0.4"
+  }
 }
