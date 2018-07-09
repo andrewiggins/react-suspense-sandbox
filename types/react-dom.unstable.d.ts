@@ -1,13 +1,34 @@
 import * as ReactDOM from "react-dom";
 
 declare module "react-dom" {
-  interface CreateRootOptions {
-    hydrate: boolean;
+  interface Work {
+    then(onCommit: () => any): void;
+  }
+
+  interface Batch {
+    render(children: JSX.Element): Work,
+    then(onComplete: () => any): void,
+    commit(): void,
   }
 
   interface ReactRoot {
-    render(element: JSX.Element): void;
+    render(children: JSX.Element, callback?: () => any): Work,
+    unmount(callback?: () => any): Work,
+    createBatch(): Batch,
   }
 
-  export function unstable_createRoot(container: Element, options?: CreateRootOptions): ReactRoot;
+  type DOMContainer = Element | Document;
+
+  interface RootOptions {
+    hydrate: boolean;
+  }
+
+  export function unstable_createRoot(
+    container: DOMContainer,
+    options?: RootOptions
+  ): ReactRoot;
+
+  export function unstable_deferredUpdates<ReturnType>(
+    fn: () => ReturnType
+  ): ReturnType;
 }

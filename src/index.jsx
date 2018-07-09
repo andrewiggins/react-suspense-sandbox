@@ -20,17 +20,37 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 0
+      value: 0,
+      valueAsync: 0
     };
 
     readText.preload(props.cache, 0);
   }
 
-  addOne = () => this.setState({ value: this.state.value + 1 });
-  substractOne = () => this.setState({ value: this.state.value - 1 });
+  addOne = () => {
+    this.addOneSync();
+    this.addOneAsync();
+  };
+
+  substractOne = () => {
+    this.substractOneSync();
+    this.substractOneAsync();
+  }
+
+  addOneSync = () => this.setState({ value: this.state.value + 1 });
+  substractOneSync = () => this.setState({ value: this.state.value - 1 });
+
+  addOneAsync = () =>
+    ReactDOM.unstable_deferredUpdates(() =>
+      this.setState({ valueAsync: this.state.valueAsync + 1 })
+    );
+  substractOneAsync = () =>
+    ReactDOM.unstable_deferredUpdates(() =>
+      this.setState({ valueAsync: this.state.valueAsync - 1 })
+    );
 
   render() {
-    const { value } = this.state;
+    const { value, valueAsync } = this.state;
     const { cache } = this.props;
 
     return (
@@ -50,7 +70,7 @@ class App extends React.Component {
         <div>
           <span>AsyncText: </span>
           <React.Placeholder delayMs={2500} fallback={<span>Loading...</span>}>
-            <AsyncText cache={cache} value={value} />
+            <AsyncText cache={cache} value={valueAsync} />
           </React.Placeholder>
         </div>
       </React.Fragment>
