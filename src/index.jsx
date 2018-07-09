@@ -2,18 +2,16 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { SimpleCache, createResource } from "simple-cache-provider";
 import { getText } from "./getText";
-// import "./styles.css";
 
 const readText = createResource(getText);
 
-function SyncText({ value }) {
+function Text({ value }) {
   return <span>{value}</span>;
 }
 
 function AsyncText({ cache, value }) {
   value = readText.read(cache, value);
-
-  return <SyncText value={value} />;
+  return <Text value={value} />;
 }
 
 class App extends React.Component {
@@ -28,26 +26,24 @@ class App extends React.Component {
   }
 
   addOne = () => {
-    this.addOneSync();
-    this.addOneAsync();
-  };
+    // High-priority update to `state.value`
+    this.setState({ value: this.state.value + 1 });
 
-  substractOne = () => {
-    this.substractOneSync();
-    this.substractOneAsync();
-  }
-
-  addOneSync = () => this.setState({ value: this.state.value + 1 });
-  substractOneSync = () => this.setState({ value: this.state.value - 1 });
-
-  addOneAsync = () =>
+    // Low priority update to `state.valueAsync`. Could be suspended.
     ReactDOM.unstable_deferredUpdates(() =>
       this.setState({ valueAsync: this.state.valueAsync + 1 })
     );
-  substractOneAsync = () =>
+  };
+
+  substractOne = () => {
+    // High-priority update to `state.value`
+    this.setState({ value: this.state.value - 1 });
+
+    // Low priority update to `state.valueAsync`. Could be suspended.
     ReactDOM.unstable_deferredUpdates(() =>
       this.setState({ valueAsync: this.state.valueAsync - 1 })
     );
+  };
 
   render() {
     const { value, valueAsync } = this.state;
@@ -64,7 +60,7 @@ class App extends React.Component {
 
         <div>
           <span>Expected: </span>
-          <SyncText value={value} />
+          <Text value={value} />
         </div>
 
         <div>
