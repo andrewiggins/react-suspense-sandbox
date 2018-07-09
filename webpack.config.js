@@ -22,8 +22,13 @@ module.exports = {
     rules: [
       {
         test: /\.[jt]sx?$/,
-        use: "ts-loader",
-        exclude: /node_modules|lib/
+        loader: "ts-loader",
+        exclude: /node_modules|lib/,
+        // exclude: m => { let result = m.includes('node_modules') || m.includes('lib'); console.log(result, m); return result; },
+        options: {
+          transpileOnly: true,
+          onlyCompileBundledFiles: true
+        }
       }
     ]
   },

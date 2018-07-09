@@ -32,5 +32,8 @@
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8",
     "webpack-serve": "^1.0.4"
+  },
+  "dependencies": {
+    "simple-cache-provider": "^0.7.0"
   }
 }
