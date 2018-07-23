@@ -5,9 +5,12 @@ const expand = (...args) => path.join(__dirname, ...args);
 
 module.exports = {
   mode: "development",
-  entry: expand("./src/index.jsx"),
+  entry: {
+    fiber: expand("./src/fiber/index.jsx"),
+    suspense: expand("./src/suspense/index.jsx"),
+  },
   output: {
-    path: expand("./dist"),
+    path: expand("./dist/"),
     filename: "[name].bundle.js"
   },
   devtool: "source-map",
@@ -35,7 +38,15 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: "React Suspense Sandbox",
-      template: expand("./src/index.html")
-    })
+      template: expand("./src/suspense/index.html"),
+      chunks: [ 'suspense' ],
+      filename: 'suspense/index.html'
+    }),
+    new HtmlWebpackPlugin({
+      title: "React Fiber Sandbox",
+      template: expand("./src/fiber/index.html"),
+      chunks: [ 'fiber' ],
+      filename: 'fiber/index.html',
+    }),
   ]
 };
