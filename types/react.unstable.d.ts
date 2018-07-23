@@ -7,4 +7,6 @@ declare module "react" {
   }
 
   export class Placeholder extends React.Component<PlaceholderProps> {}
+
+  export class unstable_AsyncMode extends React.Component<{}> {}
 }
