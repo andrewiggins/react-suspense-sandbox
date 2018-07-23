@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const expand = (...args) => path.join(__dirname, ...args);
 
@@ -7,7 +8,7 @@ module.exports = {
   mode: "development",
   entry: {
     fiber: expand("./src/fiber/index.jsx"),
-    suspense: expand("./src/suspense/index.jsx"),
+    suspense: expand("./src/suspense/index.jsx")
   },
   output: {
     path: expand("./dist/"),
@@ -39,14 +40,34 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "React Suspense Sandbox",
       template: expand("./src/suspense/index.html"),
-      chunks: [ 'suspense' ],
-      filename: 'suspense/index.html'
+      excludeChunks: ["fiber"],
+      filename: "suspense/index.html"
     }),
     new HtmlWebpackPlugin({
       title: "React Fiber Sandbox",
       template: expand("./src/fiber/index.html"),
-      chunks: [ 'fiber' ],
-      filename: 'fiber/index.html',
+      excludeChunks: ["suspense"],
+      filename: "fiber/index.html"
     }),
-  ]
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      openAnalyzer: false
+    })
+  ],
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+      minChunks: 2,
+      cacheGroups: {
+        react: {
+          test: /react\./,
+          name: "react"
+        },
+        "react-dom": {
+          test: /react-dom\./,
+          name: "react-dom"
+        }
+      }
+    }
+  }
 };
