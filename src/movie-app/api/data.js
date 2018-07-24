@@ -1,3 +1,10 @@
+import birdPosterUrl from "../img/bird.jpg";
+import downsizingPosterUrl from "../img/downsizing.jpg";
+import pantherPosterUrl from "../img/panther.jpg";
+import womanPosterUrl from "../img/woman.jpg";
+import figuresPosterUrl from "../img/figures.jpg";
+import manPosterUrl from "../img/man.jpg";
+
 export const movieListJSON = [
   { id: 1, title: "Lady Bird", rating: "99%", gross: "$52.9M", fresh: true },
   { id: 2, title: "Downsizing", rating: "51%", gross: "$24.5M", fresh: false },
@@ -31,32 +38,36 @@ export const movieDetailsJSON = {
     rating: "99%",
     fresh: true,
     audience: "81%",
-    consensus: "Lady Bird delivers fresh insights about",
-    poster: "/img/bird.jpg"
+    consensus:
+      "Lady Bird delivers fresh insights about the turmoil of adolescence -- and reveals writer-director Greta Gerwig as a fully formed filmmaking talent.",
+    poster: birdPosterUrl
   },
   2: {
     title: "Downsizing",
     rating: "51%",
     fresh: false,
     audience: "23%",
-    consensus: "Downsizing assembles a talented cast in",
-    poster: "/img/downsizing.jpg"
+    consensus:
+      "Downsizing assembles a talented cast in pursuit of some truly interesting ideas -- which may be enough for some audiences to forgive the final product's frustrating shortcomings.",
+    poster: downsizingPosterUrl
   },
   3: {
     title: "Black Panther",
     rating: "98%",
     fresh: true,
     audience: "77%",
-    consensus: "Black Panther elevates superhero cinema to",
-    poster: "/img/panther.jpg"
+    consensus:
+      "Black Panther elevates superhero cinema to thrilling new heights while telling one of the MCU's most absorbing stories -- and introducing some of its most fully realized characters.",
+    poster: pantherPosterUrl
   },
   4: {
     title: "A Fantastic Woman",
     rating: "93%",
     fresh: true,
     audience: "82%",
-    consensus: "Subtle and tender, A Fantastic Woman",
-    poster: "/img/woman.jpg"
+    consensus:
+      "Subtle and tender, A Fantastic Woman handles its timely, sensitive subject matter with care.",
+    poster: womanPosterUrl
   },
   5: {
     title: "Father Figures",
@@ -64,15 +75,16 @@ export const movieDetailsJSON = {
     fresh: false,
     audience: "36%",
     consensus: "No consensus yet.",
-    poster: "/img/figures.jpg"
+    poster: figuresPosterUrl
   },
   6: {
     title: "Early Man",
     rating: "81%",
     fresh: true,
     audience: "57%",
-    consensus: "Early Man isn't quite as evolved as ",
-    poster: "/img/man.jpg"
+    consensus:
+      "Early Man isn't quite as evolved as Aardman's best work, but still retains the unique visuals and sweet humor that have made the studio a favorite among animation enthusiasts.",
+    poster: manPosterUrl
   }
 };
 

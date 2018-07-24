@@ -39,6 +39,18 @@ module.exports = {
           transpileOnly: true,
           onlyCompileBundledFiles: true
         }
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[hash].[ext]',
+              outputPath: 'img'
+            }
+          }
+        ]
       }
     ]
   },
