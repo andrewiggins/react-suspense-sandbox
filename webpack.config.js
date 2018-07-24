@@ -1,15 +1,21 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 const expand = (...args) => path.join(__dirname, ...args);
 
+const entry = {
+  fiber: expand("./src/fiber/index.jsx"),
+  suspense: expand("./src/suspense/index.jsx"),
+  "movie-app": expand("./src/movie-app/index.jsx")
+};
+
+const getExcludedChunks = currentChunkId => Object.keys(entry).filter(chunk => chunk !== currentChunkId);
+
 module.exports = {
   mode: "development",
-  entry: {
-    fiber: expand("./src/fiber/index.jsx"),
-    suspense: expand("./src/suspense/index.jsx")
-  },
+  entry,
   output: {
     path: expand("./dist/"),
     filename: "[name].bundle.js"
@@ -40,17 +46,23 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "React Suspense Sandbox",
       template: expand("./src/suspense/index.html"),
-      excludeChunks: ["fiber"],
+      excludeChunks: getExcludedChunks("suspense"),
       filename: "suspense/index.html"
     }),
     new HtmlWebpackPlugin({
       title: "React Fiber Sandbox",
       template: expand("./src/fiber/index.html"),
-      excludeChunks: ["suspense"],
+      excludeChunks: getExcludedChunks("fiber"),
       filename: "fiber/index.html"
     }),
+    new HtmlWebpackPlugin({
+      title: "React Movie App",
+      template: expand("./src/movie-app/index.html"),
+      excludeChunks: getExcludedChunks("movie-app"),
+      filename: "movie-app/index.html"
+    }),
     new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
+      analyzerMode: "static",
       openAnalyzer: false
     })
   ],
