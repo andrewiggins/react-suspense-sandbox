@@ -1,0 +1,37 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.MovieDetails {
+  display: grid;
+  grid-gap: 12px;
+  grid-template-areas:
+    "poster title title"
+    "poster meter audience"
+    "poster consensus consensus";
+  margin-top: 1em;
+
+  .MoviePoster {
+    grid-area: poster;
+  }
+
+  h1 {
+    grid-area: title;
+  }
+
+  .MovieMetrics-tomato {
+    grid-area: meter;
+  }
+
+  .MovieMetrics-audience {
+    grid-area: audience;
+  }
+
+  .MovieMetrics-consensus {
+    grid-area: consensus;
+  }
+}
+
+.MovieReviews {
+  margin-top: 2em;
+}

@@ -26,7 +26,7 @@ export default function MoviePage(props) {
 function MovieDetails(props) {
   const movie = movieDetailsJSON[props.id];
   return (
-    <div>
+    <div className="MovieDetails">
       <MoviePoster src={movie.poster} />
       <h1>{movie.title}</h1>
       <MovieMetrics {...movie} />

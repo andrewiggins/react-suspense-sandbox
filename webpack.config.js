@@ -11,7 +11,8 @@ const entry = {
   "movie-app": expand("./src/movie-app/index.jsx")
 };
 
-const getExcludedChunks = currentChunkId => Object.keys(entry).filter(chunk => chunk !== currentChunkId);
+const getExcludedChunks = currentChunkId =>
+  Object.keys(entry).filter(chunk => chunk !== currentChunkId);
 
 module.exports = {
   mode: "development",
@@ -44,12 +45,20 @@ module.exports = {
         test: /\.(png|jpg|gif)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              name: '[name].[hash].[ext]',
-              outputPath: 'img'
+              name: "[name].[hash].[ext]",
+              outputPath: "img"
             }
           }
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-loader", options: { importLoaders: 1 } },
+          { loader: "sass-loader" }
         ]
       }
     ]
