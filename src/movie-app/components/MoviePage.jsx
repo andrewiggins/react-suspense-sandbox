@@ -67,7 +67,7 @@ function MovieReviews(props) {
   const reviews = movieReviewsJSON[props.id];
   return (
     <div className="MovieReviews">
-      {reviews.map(review => <MovieReview key={reviews.id} {...review} />)}
+      {reviews.map(review => <MovieReview key={review.id} {...review} />)}
     </div>
   );
 }
