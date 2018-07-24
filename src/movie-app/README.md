@@ -1,0 +1,23 @@
+# Movie App
+
+The app from [Dan Abramov's ReactFest Suspense video](https://www.youtube.com/watch?v=6g3g0Q_XVb4).
+
+## Enhancements
+
+Throughout the video he enhances the app from loading static synchronous data to loading everything asnychronously. Here
+are the enhancements in order.
+
+1. Read movie details from `fetchMovieDetails` using `movieDetailFetcher`, deferring the change to `showDetail` state
+2. Wrap `MoviePage` in a `Placeholder` to delay showing a spinner
+3. Read movie reviews from `fetchMovieReviews` using `movieReviewsFetcher`
+4. Wrap `MovieReviews` in a `Placeholder`
+5. Add inline loading to `MovieListPage` using `Loading` component and remove `Placeholder` around `MoviePage`
+6. Code-split and dynamically download the `MoviePage` component using a `MoviePageLoader` component and
+   `moviePageFetcher`
+7. Download the movie posters using an `imageFetcher` and `Img` component so the `MoviePage` is given a chance to wait
+   for the image to load
+8. Wrap the `Img` component in `MoviePoster` in a `Placeholder` that falls back to a normal `<img />`
+9. Add `NextButton` that increments the `currentId` (deferred) by `1`
+10. Prerender the next page without blocking the browser by using the `MoviePageLoader` component inside of a `hidden`
+    div (remember, lowest priority work for React is offscreen, i.e. hidden). Don't forget to add keys so react can
+    simply swap the existing nodes
