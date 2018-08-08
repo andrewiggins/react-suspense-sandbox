@@ -1,5 +1,7 @@
 import * as ReactDOM from "react-dom";
 
+// Taken from ReactDOM flow types in ReactDOM's source files
+
 declare module "react-dom" {
   interface Work {
     then(onCommit: () => any): void;

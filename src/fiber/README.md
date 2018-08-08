@@ -1,5 +1,8 @@
 # React Fiber sandbox
 
+This project contains code used to understand how React Fiber works. Below is a list of things I've learned and interesting
+methods I've come across while exploring it's implementation.
+
 This document is based on React as of commit 095dd5049.
 
 ## Learnings

@@ -2,6 +2,8 @@
 
 The app from [Dan Abramov's ReactFest Suspense video](https://www.youtube.com/watch?v=6g3g0Q_XVb4).
 
+**NOTE: No suspense features are added yet to this movie-app**
+
 ## Enhancements
 
 Throughout the video he enhances the app from loading static synchronous data to loading everything asnychronously. Here
