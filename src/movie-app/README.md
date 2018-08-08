@@ -4,6 +4,9 @@ The app from [Dan Abramov's ReactFest Suspense video](https://www.youtube.com/wa
 
 **NOTE: No suspense features are added yet to this movie-app**
 
+Perhaps [React's async fixture](https://twitter.com/dan_abramov/status/1025185531515351040)
+replaces this sandbox...
+
 ## Enhancements
 
 Throughout the video he enhances the app from loading static synchronous data to loading everything asnychronously. Here
