@@ -11,9 +11,37 @@ There are two main types of components: HostComponent (e.g. div) and Functional/
 
 ### To expand
 
-* `Fiber.firstEffect/Fiber.lastEffect` - pointers to Fibers with an `effectTag` and `updatePayload`s to commit.
-  Q: Where is this linked list maintained? When does a child add its effects to its parent?
-  A: maybe completeUnitOfWork?
+* How does React manage multiple pending updates? What is the `Fiber.updateQueue` and how is it managed? Are
+  all updates added to it? What updates are enqueued?
+
+  It appears calls to `setState` find their way to `ReactFiberClassComponent.enqueueSetState`, which calls
+  `ReactUpdateQueue.enqueueUpdate`, which adds to the `workInProgress.updateQueue`. Then when running
+  `ReactFiberClassComponent.updateClassInstance` (see below), `processUpdateQueue` is used to get
+  the next state.
+
+  `processUpdateQueue` applies all pending state updates with high enough priority and returns them.
+  There is some logic in there around skipping over lower priority updates, but keeping them in their
+  place in the queue. When the lower priority update is applied all the high pri updates before it are
+  applied as well so they can be reapplied in the same order.
+
+  Stack frame for `updateClassInstance`:
+    1. `ReactFiberBeginWork.beginWork`
+    2. `ReactFiberBeginWork.updateClassComponent`
+    3. `ReactFiberClassComponent.updatedClassInstance`
+    4. `ReactUpdateQueue.processUpdateQueue`
+
+* TODO: Add tracing in `completeUnitOfWork` for when the loop in that method climbs up the tree and
+  completes parent Fibers
+
+* TODO: Add tracing for all mechanisms that requestWork and if they modify any `updateQueue`s
+
+* TODO: Add tracing for all methods in `ReactFiberClassComponent.classComponentUpdater`
+
+* TODO: Write paragraphs describing
+    * How the updateQueue is managed
+    * How the tree is climbed and work happens (in what methods, etc.)
+    * How effects are tracked
+    * How work is commited
 
 ### Types of side effects
 
@@ -75,7 +103,7 @@ Such as the below:
   function completeUnitOfWork(workInProgress: Fiber): Fiber | null;
   ```
 
-  Calls completeWork (TODO: what does that do?). Then appends the current Fiber's children effects
+  Calls completeWork. Then appends the current Fiber's children effects
   to the returnFiber (if no siblings) and then appends itself if the current Fiber has an effect.
 
   TODO: Document who calls this method & when they call the method, and expand what it does. I think
