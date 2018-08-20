@@ -30,9 +30,6 @@ There are two main types of components: HostComponent (e.g. div) and Functional/
     3. `ReactFiberClassComponent.updatedClassInstance`
     4. `ReactUpdateQueue.processUpdateQueue`
 
-* TODO: Add tracing in `completeUnitOfWork` for when the loop in that method climbs up the tree and
-  completes parent Fibers
-
 * TODO: Add tracing for all mechanisms that requestWork and if they modify any `updateQueue`s
 
 * TODO: Add tracing for all methods in `ReactFiberClassComponent.classComponentUpdater`
