@@ -142,5 +142,6 @@ here.
   1. Finds the Placeholder ancestor with the shortest timeout defined (why?)
   2. (TODO - what does that second loop do?)
 
-  If no Placeholder is found, it converts the thrown error to a new error that
-  states that "an update was suspended but no Placeholder UI was found".
+  If the error is a `thenable` and no Placeholder is found, it converts the
+  thrown error to a new error that states that "an update was suspended but
+  no Placeholder UI was found".

@@ -9,6 +9,12 @@ This document is based on React as of commit 095dd5049.
 
 There are two main types of components: HostComponent (e.g. div) and Functional/ClassComponent (e.g. React Components).
 
+### To expand
+
+* `Fiber.firstEffect/Fiber.lastEffect` - pointers to Fibers with an `effectTag` and `updatePayload`s to commit.
+  Q: Where is this linked list maintained? When does a child add its effects to its parent?
+  A: maybe completeUnitOfWork?
+
 ### Types of side effects
 
 **ReactTypeOfSideEffect.js** stores the list of side effects. Some interesting ones:
@@ -30,7 +36,85 @@ Such as the below:
 ["className", "blue", "children", "16"];
 ```
 
+### Method descriptions
+
 #### ReactFiberScheduler
+
+- renderRoot
+
+  ```ts
+  function renderRoot(
+    root: FiberRoot,
+    isYieldy: boolean,
+    isExpired: boolean,
+  ): void
+  ```
+
+  Runs the `workLoop`. Also handles errors thrown while performing work
+
+- workLoop
+
+  ```ts
+  function workLoop(isYieldy): void;
+  ```
+
+  Calls `performUnitOfWork` in a loop until it needs to yield
+
+- performUnitOfWork
+
+  ```ts
+  function performUnitOfWork(workInProgress: Fiber): Fiber | null;
+  ```
+
+  Calls `beginWork` and `completeUnitWork`, returning the next Fiber to work on. It is
+  called in the `workLoop`.
+
+- completeUnitOfWork
+
+  ```ts
+  function completeUnitOfWork(workInProgress: Fiber): Fiber | null;
+  ```
+
+  Calls completeWork (TODO: what does that do?). Then appends the current Fiber's children effects
+  to the returnFiber (if no siblings) and then appends itself if the current Fiber has an effect.
+
+  TODO: Document who calls this method & when they call the method, and expand what it does. I think
+  it is only called after all children are completed (It appears `beginWork` ends up returning
+  `workInProgress.child` so if `workInProgress.child` is `null` this method gets invoked.)? Then
+  this method determines if the next workInProgress is either the `workInProgress.sibling`,
+  or the `workInProgress.return`. If it is a sibling, this method returns the sibling to
+  `performUnitOfWork` and the `workLoop` continues with the sibling. If the next workInProgress
+  is the return Fiber, then this method loops and completes the return Fiber as well. That loop
+  continues completing return Fibers until an exit condition is met (such as reaching the root,
+  or finding a sibling Fiber to work on, etc.)
+
+  TODO: Investigate comment `// Do not append effects to parents if a sibling failed to complete`
+
+  TODO: Investigate what this method does when a component throws
+
+- completeRoot
+
+  ```ts
+  function completeRoot(
+    root: FiberRoot,
+    finishedWork: Fiber,
+    expirationTime: ExpirationTime,
+  ): void
+  ```
+
+  Commits completed work on this root by either scheduling the finished work to be committed with
+  an already scheduled batched update or by calling `commitRoot` which synchronously commits the
+  work.
+
+- commitRoot
+
+  ```ts
+  function commitRoot(root: FiberRoot, finishedWork: Fiber): void;
+  ```
+
+  Runs the commit phase of React by calling `commitBeforeMutationLifecycles` (i.e. `getSnapshotBeforeUpdate`),
+  `commitAllHostEffects` (i.e. applies updates), and `commitAllLifeCycles` (i.e. TODO: figure out what this
+  method does)
 
 - commitAllHostEffects
 
@@ -39,6 +123,37 @@ Such as the below:
   ```
 
   Loops through the effects (fibers) to apply and commits them, calling the appropriate method per effect type
+
+#### ReactFiberBeginWork
+
+- beginWork
+
+  ```ts
+  function beginWork(
+    current: Fiber | null,
+    workInProgress: Fiber,
+    renderExpirationTime: ExpirationTime,
+  ): Fiber | null
+  ```
+
+  Updates a `workInProgress` fiber (e.g. a class component or functional component) and returns the next
+  Fiber to work on, typically the `workInProgress.child`.
+
+#### ReactFiberCompleteWork
+
+- completeWork
+
+  ```ts
+  function completeWork(
+    current: Fiber | null,
+    workInProgress: Fiber,
+    renderExpirationTime: ExpirationTime,
+  ): Fiber | null;
+  ```
+
+  For HostComponents (i.e. DOM elements) calls `prepareUpdate` to generate an update payload and
+  `updateHostComponent` to set the update payload on the component and mark its effect tag as having
+  an `Update` effect.
 
 #### ReactFiberCommitWork
 
