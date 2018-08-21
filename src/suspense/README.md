@@ -17,8 +17,7 @@ here.
 
 - The ability to pause an update in progress seems hinged on the ability to have
   separate render/commit stages in order to avoid "tearing" (i.e. to avoid
-  paritally applying updates to the DOM) (e.g. only rendering part of the page
-  to the DOM).
+  paritally applying updates to the DOM).
 
 - `expirationTime` is the core concept React uses to model priorities (I think).
   An update with a sooner expiration time has a higher priority than one with a
@@ -29,6 +28,10 @@ here.
 - Better understand how React tracks effects. There is an `updatePayload`
   concept in ReactDOM, but what are the `firstEffect` and `lastEffect` pointers
   on a Fiber used for?
+
+  I think `firstEffect` and `lastEffect` make up the linked list of Fibers that
+  have an `updatePayload` to commit to the DOM.
+
 - How does React handle multiple updates queued to the same subtree (e.g.
   quickly clicking different links in a nav that is code-split). Might be
   related to the `updateQueue` defined in `ReactUpdateQueue.js`.
@@ -120,8 +123,8 @@ here.
   ): void;
   ```
 
-  Schedules a re-render on the root Fiber and calls `requestWork` to schedule when
-  the update will happen.
+  Schedules a re-render on the root Fiber and calls `requestWork` to schedule
+  when the update will happen.
 
 #### ReactFiberUnwindWork
 
@@ -143,5 +146,5 @@ here.
   2. (TODO - what does that second loop do?)
 
   If the error is a `thenable` and no Placeholder is found, it converts the
-  thrown error to a new error that states that "an update was suspended but
-  no Placeholder UI was found".
+  thrown error to a new error that states that "an update was suspended but no
+  Placeholder UI was found".
