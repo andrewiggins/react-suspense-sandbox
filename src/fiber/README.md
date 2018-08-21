@@ -30,7 +30,15 @@ methods on to one line if they are usually called together and are closely relat
       12. commitWork/commitPlacement/commitDeletion -> 13. commitUpdate
 ```
 
-Each of the methods above are described in more detail below. In summary:
+Each of the methods above are described in more detail further below. For now, we'll summarize
+the work loop here.
+
+NOTE: React has a mechanism of using "deadlines" to pause work momentairly so the browser can
+run a "style-layout-paint-composite" cycle. This manifest itself in multiple calls to `performWorkOnRoot`
+that resume where the previous `performWorkOnRoot` left off. There are also other more complicated
+mechanisms React has around abandoning a `workInProgress` Fiber for a higher priority update. This process
+of pausing a work in progress is called `yielding` in the React codebase (I think). I don't describe
+yielding below for simplicity, though I believe it happens in the `workLoop` if you are curious.
 
 #### Render phase
 
@@ -96,8 +104,8 @@ Such as the below:
 
 * TODO: Write paragraphs describing
     * How work is commited
-    * How the updateQueue is managed
     * How effects are tracked
+    * How the updateQueue is managed
 
 ## Method descriptions
 
