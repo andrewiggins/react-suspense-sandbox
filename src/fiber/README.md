@@ -1,21 +1,26 @@
 # React Fiber sandbox
 
-This project contains code used to understand how React Fiber works. Below is a list of things I've learned and interesting
-methods I've come across while exploring it's implementation.
+This project contains code used to understand how React Fiber works. Below is a
+list of things I've learned and interesting methods I've come across while
+exploring it's implementation.
 
 This document is based on React as of commit 095dd5049 (2018-07-07).
 
 ## Learnings
 
-There are two main types of components: HostComponent (e.g. div) and Functional/ClassComponent (e.g. React Components).
+There are two main types of components: HostComponent (e.g. div) and
+Functional/ClassComponent (e.g. React Components).
 
-Fibers generally map to components and other elements in the React virtual dom. So "performing work on a Fiber" is can
-also be read as "performing work on a component", which usually invovles calling lifecycle methods and diffing properties.
+Fibers generally map to components and other elements in the React virtual dom.
+So "performing work on a Fiber" is can also be read as "performing work on a
+component", which usually invovles calling lifecycle methods and diffing
+properties.
 
 ### The general flow
 
-When React is ready to proces the update the general, simplified call stack of methods is below. I've combined
-methods on to one line if they are usually called together and are closely related.
+When React is ready to proces the update the general, simplified call stack of
+methods is below. I've combined methods on to one line if they are usually
+called together and are closely related.
 
 ```text
 1. performWorkOnRoot
@@ -30,27 +35,36 @@ methods on to one line if they are usually called together and are closely relat
       12. commitWork/commitPlacement/commitDeletion -> 13. commitUpdate
 ```
 
-Each of the methods above are described in more detail further below. For now, we'll summarize
-the work loop here.
+Each of the methods above are described in more detail further below. For now,
+we'll summarize the work loop here.
 
-NOTE: React has a mechanism of using "deadlines" to pause work momentairly so the browser can
-run a "style-layout-paint-composite" cycle. This manifest itself in multiple calls to `performWorkOnRoot`
-that resume where the previous `performWorkOnRoot` left off. There are also other more complicated
-mechanisms React has around abandoning a `workInProgress` Fiber for a higher priority update. This process
-of pausing a work in progress is called `yielding` in the React codebase (I think). I don't describe
-yielding below for simplicity, though I believe it happens in the `workLoop` if you are curious.
+NOTE: React has a mechanism of using "deadlines" to pause work momentairly so
+the browser can run a "style-layout-paint-composite" cycle. This manifest itself
+in multiple calls to `performWorkOnRoot` that resume where the previous
+`performWorkOnRoot` left off. There are also other more complicated mechanisms
+React has around abandoning a `workInProgress` Fiber for a higher priority
+update. This process of pausing a work in progress is called `yielding` in the
+React codebase (I think). I don't describe yielding below for simplicity, though
+I believe it happens in the `workLoop` if you are curious.
 
 #### Render phase
 
-When React is ready to do work, it calls `performUnitOfWork` on the Fiber to be worked on (the `workInProgress`). `performUnitOfWork` calls
-`beginWork` on the Fiber. `beginWork` runs the render phase for that Fiber. If that Fiber has children, `beginWork` returns the first child
-of the Fiber, which the `workLoop` begins working on. Once a Fiber with no children is reached, `performUnitOfWork` calls `completeUnitOfWork`
-on that Fiber. `completeUnitOfWork` computes any updates/effects that need to happen (by calling `completeWork`), and adds them to the parent
-Fiber's (`Fiber.return`) effect list. It then computes the next Fiber to complete or work on. If there is a sibling Fiber, `completeUnitOfWork`
-returns it to work on. If there is no sibling, then `completeUnitOfWork` completes the parent Fiber. If the parent Fiber has a sibling Fiber
-to work it returns it, else it works on its parent Fiber. This loop (`this` -> `child` -> `sibling` -> `parent`) continues until all Fibers/
-Components are worked on and completed. At the end of this workLoop, the root Fiber has a linked list to all the Fibers that have updates to
-apply: this is the effect list. It is linked to on the `Fiber.firstEffect` and `Fiber.lastEffect` properties.
+When React is ready to do work, it calls `performUnitOfWork` on the Fiber to be
+worked on (the `workInProgress`). `performUnitOfWork` calls `beginWork` on the
+Fiber. `beginWork` runs the render phase for that Fiber. If that Fiber has
+children, `beginWork` returns the first child of the Fiber, which the `workLoop`
+begins working on. Once a Fiber with no children is reached, `performUnitOfWork`
+calls `completeUnitOfWork` on that Fiber. `completeUnitOfWork` computes any
+updates/effects that need to happen (by calling `completeWork`), and adds them
+to the parent Fiber's (`Fiber.return`) effect list. It then computes the next
+Fiber to complete or work on. If there is a sibling Fiber, `completeUnitOfWork`
+returns it to work on. If there is no sibling, then `completeUnitOfWork`
+completes the parent Fiber. If the parent Fiber has a sibling Fiber to work it
+returns it, else it works on its parent Fiber. This loop (`this` -> `child` ->
+`sibling` -> `parent`) continues until all Fibers/ Components are worked on and
+completed. At the end of this workLoop, the root Fiber has a linked list to all
+the Fibers that have updates to apply: this is the effect list. It is linked to
+on the `Fiber.firstEffect` and `Fiber.lastEffect` properties.
 
 #### Commit phase
 
@@ -58,7 +72,8 @@ TODO: Expand
 
 ### Types of side effects
 
-**ReactTypeOfSideEffect.js** stores the list of side effects. Some interesting ones:
+**ReactTypeOfSideEffect.js** stores the list of side effects. Some interesting
+ones:
 
 - Placement
 - Update
@@ -70,8 +85,8 @@ TODO: Expand
 
 ### Commiting work
 
-The type of an `updatePayload` is a list of pairs where the first item in the pair is property, and the second item is the new value.
-Such as the below:
+The type of an `updatePayload` is a list of pairs where the first item in the
+pair is property, and the second item is the new value. Such as the below:
 
 ```ts
 ["className", "blue", "children", "16"];
@@ -79,18 +94,23 @@ Such as the below:
 
 ### To expand
 
-* How does React manage multiple pending updates? What is the `Fiber.updateQueue` and how is it managed? Are
-  all updates added to it? What updates are enqueued?
+* How does React manage multiple pending updates? What is the
+  `Fiber.updateQueue` and how is it managed? Are all updates added to it? What
+  updates are enqueued?
 
-  It appears calls to `setState` find their way to `ReactFiberClassComponent.enqueueSetState`, which calls
-  `ReactUpdateQueue.enqueueUpdate`, which adds to the `workInProgress.updateQueue`. Then when running
-  `ReactFiberClassComponent.updateClassInstance` (see below), `processUpdateQueue` is used to get
-  the next state.
+  It appears calls to `setState` find their way to
+  `ReactFiberClassComponent.enqueueSetState`, which calls
+  `ReactUpdateQueue.enqueueUpdate`, which adds to the
+  `workInProgress.updateQueue`. Then when running
+  `ReactFiberClassComponent.updateClassInstance` (see below),
+  `processUpdateQueue` is used to get the next state.
 
-  `processUpdateQueue` applies all pending state updates with high enough priority and returns them.
-  There is some logic in there around skipping over lower priority updates, but keeping them in their
-  place in the queue. When the lower priority update is applied any high pri update previously applied
-  may be applied again to guarantee the correct original order of updates is maintained.
+  `processUpdateQueue` applies all pending state updates with high enough
+  priority and returns them. There is some logic in there around skipping over
+  lower priority updates, but keeping them in their place in the queue. When the
+  lower priority update is applied any high pri update previously applied may be
+  applied again to guarantee the correct original order of updates is
+  maintained.
 
   Stack frame for `updateClassInstance`:
     1. `ReactFiberBeginWork.beginWork`
@@ -98,9 +118,11 @@ Such as the below:
     3. `ReactFiberClassComponent.updatedClassInstance`
     4. `ReactUpdateQueue.processUpdateQueue`
 
-* TODO: Add tracing for all mechanisms that requestWork and if they modify any `updateQueue`s
+* TODO: Add tracing for all mechanisms that requestWork and if they modify any
+  `updateQueue`s
 
-* TODO: Add tracing for all methods in `ReactFiberClassComponent.classComponentUpdater`
+* TODO: Add tracing for all methods in
+  `ReactFiberClassComponent.classComponentUpdater`
 
 * TODO: Write paragraphs describing
     * How work is commited
@@ -137,8 +159,8 @@ Such as the below:
   function performUnitOfWork(workInProgress: Fiber): Fiber | null;
   ```
 
-  Calls `beginWork` and `completeUnitWork`, returning the next Fiber to work on. It is
-  called in the `workLoop`.
+  Calls `beginWork` and `completeUnitWork`, returning the next Fiber to work on.
+  It is called in the `workLoop`.
 
 - completeUnitOfWork
 
@@ -146,20 +168,24 @@ Such as the below:
   function completeUnitOfWork(workInProgress: Fiber): Fiber | null;
   ```
 
-  Calls completeWork. Then appends the current Fiber's children effects
-  to the returnFiber (if no siblings) and then appends itself if the current Fiber has an effect.
+  Calls completeWork. Then appends the current Fiber's children effects to the
+  returnFiber (if no siblings) and then appends itself if the current Fiber has
+  an effect.
 
-  TODO: Document who calls this method & when they call the method, and expand what it does. I think
-  it is only called after all children are completed (It appears `beginWork` ends up returning
-  `workInProgress.child` so if `workInProgress.child` is `null` this method gets invoked.)? Then
-  this method determines if the next workInProgress is either the `workInProgress.sibling`,
-  or the `workInProgress.return`. If it is a sibling, this method returns the sibling to
-  `performUnitOfWork` and the `workLoop` continues with the sibling. If the next workInProgress
-  is the return Fiber, then this method loops and completes the return Fiber as well. That loop
-  continues completing return Fibers until an exit condition is met (such as reaching the root,
-  or finding a sibling Fiber to work on, etc.)
+  TODO: Document who calls this method & when they call the method, and expand
+  what it does. I think it is only called after all children are completed (It
+  appears `beginWork` ends up returning `workInProgress.child` so if
+  `workInProgress.child` is `null` this method gets invoked.)? Then this method
+  determines if the next workInProgress is either the `workInProgress.sibling`,
+  or the `workInProgress.return`. If it is a sibling, this method returns the
+  sibling to `performUnitOfWork` and the `workLoop` continues with the sibling.
+  If the next workInProgress is the return Fiber, then this method loops and
+  completes the return Fiber as well. That loop continues completing return
+  Fibers until an exit condition is met (such as reaching the root, or finding a
+  sibling Fiber to work on, etc.)
 
-  TODO: Investigate comment `// Do not append effects to parents if a sibling failed to complete`
+  TODO: Investigate comment `// Do not append effects to parents if a sibling
+  failed to complete`
 
   TODO: Investigate what this method does when a component throws
 
@@ -173,9 +199,9 @@ Such as the below:
   ): void
   ```
 
-  Commits completed work on this root by either scheduling the finished work to be committed with
-  an already scheduled batched update or by calling `commitRoot` which synchronously commits the
-  work.
+  Commits completed work on this root by either scheduling the finished work to
+  be committed with an already scheduled batched update or by calling
+  `commitRoot` which synchronously commits the work.
 
 - commitRoot
 
@@ -183,9 +209,10 @@ Such as the below:
   function commitRoot(root: FiberRoot, finishedWork: Fiber): void;
   ```
 
-  Runs the commit phase of React by calling `commitBeforeMutationLifecycles` (i.e. `getSnapshotBeforeUpdate`),
-  `commitAllHostEffects` (i.e. applies updates), and `commitAllLifeCycles` (i.e. TODO: figure out what this
-  method does)
+  Runs the commit phase of React by calling `commitBeforeMutationLifecycles`
+  (i.e. `getSnapshotBeforeUpdate`), `commitAllHostEffects` (i.e. applies
+  updates), and `commitAllLifeCycles` (i.e. TODO: figure out what this method
+  does)
 
 - commitAllHostEffects
 
@@ -193,7 +220,8 @@ Such as the below:
   function commitAllHostEffects(): void;
   ```
 
-  Loops through the effects (fibers) to apply and commits them, calling the appropriate method per effect type
+  Loops through the effects (fibers) to apply and commits them, calling the
+  appropriate method per effect type
 
 ### ReactFiberBeginWork
 
@@ -207,8 +235,9 @@ Such as the below:
   ): Fiber | null
   ```
 
-  Updates a `workInProgress` fiber (e.g. a class component or functional component) and returns the next
-  Fiber to work on, typically the `workInProgress.child`.
+  Updates a `workInProgress` fiber (e.g. a class component or functional
+  component) and returns the next Fiber to work on, typically the
+  `workInProgress.child`.
 
 ### ReactFiberCompleteWork
 
@@ -222,9 +251,9 @@ Such as the below:
   ): Fiber | null;
   ```
 
-  For HostComponents (i.e. DOM elements) calls `prepareUpdate` to generate an update payload and
-  `updateHostComponent` to set the update payload on the component and mark its effect tag as having
-  an `Update` effect.
+  For HostComponents (i.e. DOM elements) calls `prepareUpdate` to generate an
+  update payload and `updateHostComponent` to set the update payload on the
+  component and mark its effect tag as having an `Update` effect.
 
 ### ReactFiberCommitWork
 
@@ -234,7 +263,8 @@ Such as the below:
   function commitPlcement(finishedWork: Fiber): void;
   ```
 
-  Commits a Placement effect by calling the host's configured insert or append methods
+  Commits a Placement effect by calling the host's configured insert or append
+  methods
 
 - commitWork
 
@@ -267,7 +297,8 @@ Such as the below:
   ): void;
   ```
 
-  Calls `ReactDOMFiberComponent.updateProperties -> ReactDOMFiberComponent.updateDOMProperties` to apply a diff.
+  Calls `ReactDOMFiberComponent.updateProperties ->
+  ReactDOMFiberComponent.updateDOMProperties` to apply a diff.
 
 - commitTextUpdate
 
@@ -328,7 +359,9 @@ Such as the below:
   ): null | Array<mixed>;
   ```
 
-  Prepares the `updatePayload` for a domElement by calling `ReactDOMFiberComponent.diffProperties` to calculate the diff between two objects
+  Prepares the `updatePayload` for a domElement by calling
+  `ReactDOMFiberComponent.diffProperties` to calculate the diff between two
+  objects
 
 ### ReactDOMFiberComponent
 
