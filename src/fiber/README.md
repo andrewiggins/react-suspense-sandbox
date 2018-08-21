@@ -51,20 +51,30 @@ I believe it happens in the `workLoop` if you are curious.
 
 When React is ready to do work, it calls `performUnitOfWork` on the Fiber to be
 worked on (the `workInProgress`). `performUnitOfWork` calls `beginWork` on the
-Fiber. `beginWork` runs the render phase for that Fiber. If that Fiber has
-children, `beginWork` returns the first child of the Fiber, which the `workLoop`
-begins working on. Once a Fiber with no children is reached, `performUnitOfWork`
-calls `completeUnitOfWork` on that Fiber. `completeUnitOfWork` computes any
+Fiber.
+
+`beginWork` runs the render phase for that Fiber (calls lifecycle methods,
+render, etc.). If that Fiber has children, `beginWork` returns the first child
+of the Fiber, which the `workLoop` calls `performUnitOfWork` on.
+
+Once a Fiber with no children is reached, `performUnitOfWork` calls
+`completeUnitOfWork` on that Fiber. `completeUnitOfWork` computes any
 updates/effects that need to happen (by calling `completeWork`), and adds them
-to the parent Fiber's (`Fiber.return`) effect list. It then computes the next
-Fiber to complete or work on. If there is a sibling Fiber, `completeUnitOfWork`
-returns it to work on. If there is no sibling, then `completeUnitOfWork`
-completes the parent Fiber. If the parent Fiber has a sibling Fiber to work it
-returns it, else it works on its parent Fiber. This loop (`this` -> `child` ->
-`sibling` -> `parent`) continues until all Fibers/ Components are worked on and
-completed. At the end of this workLoop, the root Fiber has a linked list to all
-the Fibers that have updates to apply: this is the effect list. It is linked to
-on the `Fiber.firstEffect` and `Fiber.lastEffect` properties.
+to the return Fiber's (`Fiber.return`) effect list (the Fiber's `firstEffect`
+and `lastEffect` properties) (note: `return` could be a parent Fiber or it could
+be the previous sibling). It then computes the next Fiber to complete or work
+on. If there is a sibling Fiber, `completeUnitOfWork` returns it to work on. If
+there is no sibling, then `completeUnitOfWork` completes the parent Fiber. If
+the parent Fiber has a sibling Fiber to work on, it returns it, else it works on
+its parent Fiber. This loop (`this` -> `child` -> `sibling` -> `return`)
+continues until all Fibers/Components are worked on and completed. (see the 6th
+bullet from the [Fiber Principles
+issue](https://github.com/facebook/react/issues/7942) to see a better
+description of how this traversal happens)
+
+At the end of this work loop, the root Fiber has a linked list to all the Fibers
+that have updates to apply: this is the effect list. It is linked to on the
+`Fiber.firstEffect` and `Fiber.lastEffect` properties.
 
 #### Commit phase
 
