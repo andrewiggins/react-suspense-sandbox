@@ -6,6 +6,19 @@ exploring it's implementation.
 
 This document is based on React as of commit 095dd5049 (2018-07-07).
 
+## Prior work
+
+* [A carton introduction to Fiber - React Conf
+  2017](https://www.youtube.com/watch?v=ZCuYPiUIONs) by Lin Clark ([My
+  Notes](./fiber-cartoon-notes.md))
+* [Fiber Principles: Contributing to
+  Fiber](https://github.com/facebook/react/issues/7942) by Sebastian Markbåge
+* [React Fiber
+  Architecture](https://github.com/acdlite/react-fiber-architecture) by Andrew
+  Clark
+
+TODO: Finish reading these
+
 ## Learnings
 
 There are two main types of components: HostComponent (e.g. div) and
