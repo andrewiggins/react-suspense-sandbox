@@ -144,9 +144,6 @@ pair is property, and the second item is the new value. Such as the below:
 * TODO: Add tracing for all mechanisms that requestWork and if they modify any
   `updateQueue`s
 
-* TODO: Add tracing for all methods in
-  `ReactFiberClassComponent.classComponentUpdater`
-
 * TODO: Write paragraphs describing
     * How work is commited
 
