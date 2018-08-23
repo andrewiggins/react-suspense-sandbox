@@ -25,13 +25,6 @@ here.
 
 ## To explore
 
-- Better understand how React tracks effects. There is an `updatePayload`
-  concept in ReactDOM, but what are the `firstEffect` and `lastEffect` pointers
-  on a Fiber used for?
-
-  I think `firstEffect` and `lastEffect` make up the linked list of Fibers that
-  have an `updatePayload` to commit to the DOM.
-
 - How does React handle multiple updates queued to the same subtree (e.g.
   quickly clicking different links in a nav that is code-split). Might be
   related to the `updateQueue` defined in `ReactUpdateQueue.js`.
@@ -53,7 +46,7 @@ here.
   ```
 
   Invoked whenever React wants to start doing work on a root. Calls
-  `renderRoot`.
+  `renderRoot`. May cancel any timeouts scheduled in `onSuspend`.
 
 - renderRoot
 
@@ -77,7 +70,7 @@ here.
 
   `requestWork` is called by the scheduler whenever a root receives an update.
   It's up to the renderer to call renderRoot at some point in the future. This
-  method is invoked by `ReactRoot.render` or `setState`.
+  method is invoked by `ReactRoot.render` and `setState`.
 
 - deferredUpdates
 
@@ -85,7 +78,7 @@ here.
   function deferredUpdates<A>(fn: () => A): A;
   ```
 
-  The implementation of `ReactDOM.unstable_deferredUpdates`. May call
+  The implementation of `ReactDOM.unstable_deferredUpdates`. Schedules async work. May call
   `requestWork` depending on what happens in the `deferredUpdates`.
 
 - onSuspend
@@ -100,9 +93,8 @@ here.
   ): void;
   ```
 
-  Schedules a timeout for the suspension as defined by the `Placeholder`.
-
-  TODO: Figure out how the timeout gets canceled
+  Schedules a timeout for the suspension as defined by the `Placeholder`. The timeout
+  can be cancelled in `performWorkOnRoot`.
 
 - onTimeout
 

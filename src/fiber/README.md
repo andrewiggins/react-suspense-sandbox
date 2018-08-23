@@ -149,7 +149,12 @@ pair is property, and the second item is the new value. Such as the below:
 
 * TODO: Write paragraphs describing
     * How work is commited
-    * How effects are tracked
+
+    * How effects are tracked using `firstEffect` and `lastEffect`.
+
+      I think `firstEffect` and `lastEffect` make up the linked list of Fibers
+      that have an `updatePayload` to commit to the DOM.
+
     * How the updateQueue is managed
 
 ## Method descriptions
