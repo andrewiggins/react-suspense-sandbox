@@ -141,6 +141,10 @@ pair is property, and the second item is the new value. Such as the below:
     3. `ReactFiberClassComponent.updatedClassInstance`
     4. `ReactUpdateQueue.processUpdateQueue`
 
+* TODO: Add tracing for all precommit, commit, and postcommit effects. The
+  commit Host effects is already traced, so may just need pre and post. Should
+  double check though.
+
 * TODO: Add tracing for all mechanisms that requestWork and if they modify any
   `updateQueue`s
 

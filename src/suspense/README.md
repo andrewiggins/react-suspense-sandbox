@@ -25,9 +25,12 @@ here.
 
 ## To explore
 
-- How does React handle multiple updates queued to the same subtree (e.g.
+- TODO: How does React handle multiple updates queued to the same subtree (e.g.
   quickly clicking different links in a nav that is code-split). Might be
   related to the `updateQueue` defined in `ReactUpdateQueue.js`.
+
+  Also, what happens to the previous suspended update and timeout? Does it get
+  canceled?
 
 ## Learnings
 
@@ -78,8 +81,9 @@ here.
   function deferredUpdates<A>(fn: () => A): A;
   ```
 
-  The implementation of `ReactDOM.unstable_deferredUpdates`. Schedules async work. May call
-  `requestWork` depending on what happens in the `deferredUpdates`.
+  The implementation of `ReactDOM.unstable_deferredUpdates`. Schedules async
+  work. May call `requestWork` depending on what happens in the
+  `deferredUpdates`.
 
 - onSuspend
 
@@ -93,8 +97,8 @@ here.
   ): void;
   ```
 
-  Schedules a timeout for the suspension as defined by the `Placeholder`. The timeout
-  can be cancelled in `performWorkOnRoot`.
+  Schedules a timeout for the suspension as defined by the `Placeholder`. The
+  timeout can be cancelled in `performWorkOnRoot`.
 
 - onTimeout
 
