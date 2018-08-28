@@ -25,6 +25,19 @@ here.
 
 ## To explore
 
+- TODO: Add section on min requirements for suspense:
+    - Core suspense requirements
+      - catch promises
+      - Define and find Placeholder component
+    - Sync suspense requirements
+      - rerender update on caught promise in Placeholder component
+    - Async-like suspense requirements
+      - Separate render and commit phases in order to note apply effects to the
+        DOM until we know some subtree won't suspend
+      - An update queue to track calls to `setState` (or other rerender
+        triggers) while a subtree is asnyc suspended... Is this really
+        required?
+
 - TODO: How does React handle multiple updates queued to the same subtree (e.g.
   quickly clicking different links in a nav that is code-split). Might be
   related to the `updateQueue` defined in `ReactUpdateQueue.js`.
