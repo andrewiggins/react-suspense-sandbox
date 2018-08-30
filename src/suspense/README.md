@@ -25,12 +25,18 @@ here.
 
 ## To explore
 
+- TODO: Add example of two sibling trees that suspend together and complete at
+  different times (e.g. `<div><AsyncText ms={1000}/><AsyncText ms={2000} /></div>`.
+  
+  Understand how React handles these different suspension times
+
 - TODO: Add section on min requirements for suspense:
     - Core suspense requirements
-      - catch promises
+      - Catch promises
       - Define and find Placeholder component
+      - Continue rendering siblings of suspended subtrees in the same diff
     - Sync suspense requirements
-      - rerender update on caught promise in Placeholder component
+      - Rerender update on caught promise in Placeholder component
     - Async-like suspense requirements
       - Separate render and commit phases in order to note apply effects to the
         DOM until we know some subtree won't suspend
