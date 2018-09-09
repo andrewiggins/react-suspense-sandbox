@@ -26,23 +26,29 @@ here.
 ## To explore
 
 - TODO: Add example of two sibling trees that suspend together and complete at
-  different times (e.g. `<div><AsyncText ms={1000}/><AsyncText ms={2000} /></div>`.
-  
+  different times (e.g. `<div><AsyncText ms={1000}/><AsyncText
+  ms={2000}/></div>`).
+
   Understand how React handles these different suspension times
 
 - TODO: Add section on min requirements for suspense:
     - Core suspense requirements
-      - Catch promises
+      - Fragments (Placeholder is one)
+      - Error boundaries (to catch promises)
       - Define and find Placeholder component
-      - Continue rendering siblings of suspended subtrees in the same diff
+      - Ability to continue rendering siblings of suspended subtrees in the same
+        diff (so multiple siblings can trigger their async operations in the
+        same suspend)
+      - Separate render and commit phases in order to not apply effects to the
+        DOM until we know some subtree won't suspend. (So that Placeholders can
+        render a loading over the entire tree, and avoid tearing when rendering
+        loading)
     - Sync suspense requirements
       - Rerender update on caught promise in Placeholder component
     - Async-like suspense requirements
-      - Separate render and commit phases in order to note apply effects to the
-        DOM until we know some subtree won't suspend
+      - Handling of delayMs prop on Placeholder
       - An update queue to track calls to `setState` (or other rerender
-        triggers) while a subtree is asnyc suspended... Is this really
-        required?
+        triggers) while a subtree is asnyc suspended... Is this really required?
 
 - TODO: How does React handle multiple updates queued to the same subtree (e.g.
   quickly clicking different links in a nav that is code-split). Might be
