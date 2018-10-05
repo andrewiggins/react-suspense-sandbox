@@ -8,6 +8,7 @@ const expand = (...args) => path.join(__dirname, ...args);
 const entry = {
   fiber: expand("./src/fiber/index.jsx"),
   suspense: expand("./src/suspense/index.jsx"),
+  fragments: expand("./src/fragments/index.jsx"),
   "movie-app": expand("./src/movie-app/index.jsx")
 };
 
@@ -75,6 +76,12 @@ module.exports = {
       template: expand("./src/fiber/index.html"),
       excludeChunks: getExcludedChunks("fiber"),
       filename: "fiber/index.html"
+    }),
+    new HtmlWebpackPlugin({
+      title: "React Fragments Sandbox",
+      template: expand("./src/fragments/index.html"),
+      excludeChunks: getExcludedChunks("fragments"),
+      filename: "fragments/index.html"
     }),
     new HtmlWebpackPlugin({
       title: "React Movie App",
