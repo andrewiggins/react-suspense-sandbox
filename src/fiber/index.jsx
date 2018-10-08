@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { spin } from "./spin";
+import { spin } from "../common/spin";
 
 const classes = ["", "red", "blue"];
 const getCurrentClass = index => classes[index];
