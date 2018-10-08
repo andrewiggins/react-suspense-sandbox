@@ -24,14 +24,20 @@ function Foo({ condition }) {
   );
 }
 
-const container = document.getElementById("root");
-const root = ReactDOM.unstable_createRoot(container);
+async function main() {
+  const container = document.getElementById("root");
+  const root = ReactDOM.unstable_createRoot(container);
 
-root.render(<Foo condition={true} />);
-root.render(<Foo condition={false} />);
+  await root.render(<Foo condition={true} />);
+  await root.render(<Foo condition={false} />);
 
-console.log(ops);
+  // expect(ops).to.deep.equal(['Update Stateful']);
+  console.log(ops);
 
-root.render(<Foo condition={true} />);
+  await root.render(<Foo condition={true} />);
 
-console.log(ops);
+  // expect(ops).to.deep.equal(['Update Stateful', 'Update Stateful']);
+  console.log(ops);
+}
+
+main();
