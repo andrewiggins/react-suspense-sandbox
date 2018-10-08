@@ -35,7 +35,8 @@ here.
     - Core suspense requirements
       - Fragments (Placeholder is one)
       - Error boundaries (to catch promises)
-      - Define and find Placeholder component
+      - Define Placeholder component
+      - Algorithm to find nearest Placeholder component
       - Ability to continue rendering siblings of suspended subtrees in the same
         diff (so multiple siblings can trigger their async operations in the
         same suspend)
@@ -44,9 +45,9 @@ here.
         render a loading over the entire tree, and avoid tearing when rendering
         loading)
     - Sync suspense requirements
-      - Rerender update on caught promise in Placeholder component
+      - Immediately render Placeholder's fallack prop when suspended
     - Async-like suspense requirements
-      - Handling of delayMs prop on Placeholder
+      - Delay rendering Placholder's fallback prop by delayMs prop
       - An update queue to track calls to `setState` (or other rerender
         triggers) while a subtree is asnyc suspended... Is this really required?
 
