@@ -26,7 +26,8 @@ module.exports = {
   resolve: {
     alias: {
       react: expand("./lib/old/react.5cefd9b1e.development.js"),
-      "react-dom": expand("./lib/old/react-dom.5cefd9b1e.development.js")
+      "react-dom": expand("./lib/old/react-dom.5cefd9b1e.development.js"),
+      scheduler: expand("./lib/scheduler.3db8b80e1.development.js")
     },
     extensions: [".tsx", ".ts", ".js", ".jsx"]
   },
@@ -106,6 +107,10 @@ module.exports = {
         "react-dom": {
           test: /react-dom\./,
           name: "react-dom"
+        },
+        scheduler: {
+          test: /scheduler\./,
+          name: "scheduler"
         }
       }
     }
