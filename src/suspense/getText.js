@@ -1,6 +1,4 @@
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+import { delay } from '../common/delay';
 
 export function getText(value, ms = 5000) {
   if (value == null) {

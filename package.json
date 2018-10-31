@@ -40,6 +40,6 @@
     "webpack-serve": "^1.0.4"
   },
   "dependencies": {
-    "simple-cache-provider": "^0.7.0"
+    "react-cache": "^2.0.0-alpha.0"
   }
 }

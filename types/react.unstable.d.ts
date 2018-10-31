@@ -2,11 +2,11 @@ import * as React from "react";
 
 declare module "react" {
   interface PlaceholderProps {
-    delayMs?: number;
+    maxDuration?: number;
     fallback?: JSX.Element;
   }
 
-  export class Placeholder extends React.Component<PlaceholderProps> {}
+  export class Suspense extends React.Component<PlaceholderProps> {}
 
-  export class unstable_AsyncMode extends React.Component<{}> {}
+  // export class unstable_AsyncMode extends React.Component<{}> {}
 }
