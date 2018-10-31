@@ -25,8 +25,8 @@ module.exports = {
   devtool: "source-map",
   resolve: {
     alias: {
-      react: expand("./lib/react.5cefd9b1e.development.js"),
-      "react-dom": expand("./lib/react-dom.5cefd9b1e.development.js")
+      react: expand("./lib/old/react.5cefd9b1e.development.js"),
+      "react-dom": expand("./lib/old/react-dom.5cefd9b1e.development.js")
     },
     extensions: [".tsx", ".ts", ".js", ".jsx"]
   },
