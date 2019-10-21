@@ -4,8 +4,8 @@
   "description": "Sandbox for playing around with React suspense",
   "main": "index.js",
   "scripts": {
-    "build": "webpack-cli --config webpack.config.js",
-    "start": "webpack-serve --config webpack.config.js --no-hot-client"
+    "build": "wp --config webpack.config.js",
+    "start": "wp --config webpack.config.js --watch"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "@types/react-dom": "^16.0.6",
     "css-loader": "^3.2.0",
     "file-loader": "^4.2.0",
+    "has-flag": "^4.0.0",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.0",
@@ -37,7 +38,8 @@
     "webpack": "^4.41.2",
     "webpack-bundle-analyzer": "^3.6.0",
     "webpack-cli": "^3.3.9",
-    "webpack-serve": "^3.2.0"
+    "webpack-nano": "^0.8.1",
+    "webpack-plugin-serve": "^0.12.1"
   },
   "dependencies": {
     "react-cache": "^2.0.0-alpha.0"

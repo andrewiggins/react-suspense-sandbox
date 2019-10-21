@@ -1,4 +1,6 @@
 const path = require("path");
+const hasFlag = require("has-flag");
+const { WebpackPluginServe } = require("webpack-plugin-serve");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
@@ -17,6 +19,7 @@ const getExcludedChunks = currentChunkId =>
 
 module.exports = {
   mode: "development",
+  watch: hasFlag("watch"),
   entry,
   output: {
     path: expand("./dist/"),
@@ -66,6 +69,13 @@ module.exports = {
     ]
   },
   plugins: [
+    new WebpackPluginServe({
+      client: {
+        silent: true
+      },
+      hmr: false,
+      liveReload: false
+    }),
     new HtmlWebpackPlugin({
       title: "React Suspense Sandbox",
       template: expand("./src/suspense/index.html"),
