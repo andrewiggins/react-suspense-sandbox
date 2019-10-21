@@ -101,16 +101,6 @@ here.
   It's up to the renderer to call renderRoot at some point in the future. This
   method is invoked by `ReactRoot.render` and `setState`.
 
-- deferredUpdates
-
-  ```ts
-  function deferredUpdates<A>(fn: () => A): A;
-  ```
-
-  The implementation of `ReactDOM.unstable_deferredUpdates`. Schedules async
-  work. May call `requestWork` depending on what happens in the
-  `deferredUpdates`.
-
 - onSuspend
 
   ```ts

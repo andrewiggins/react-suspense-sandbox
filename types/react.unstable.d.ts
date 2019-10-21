@@ -8,5 +8,5 @@ declare module "react" {
 
   export class Suspense extends React.Component<PlaceholderProps> {}
 
-  // export class unstable_AsyncMode extends React.Component<{}> {}
+  export class unstable_ConcurrentMode extends React.Component<{}> {}
 }

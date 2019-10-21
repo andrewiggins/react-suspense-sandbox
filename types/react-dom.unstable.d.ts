@@ -29,8 +29,4 @@ declare module "react-dom" {
     container: DOMContainer,
     options?: RootOptions
   ): ReactRoot;
-
-  export function unstable_deferredUpdates<ReturnType>(
-    fn: () => ReturnType
-  ): ReturnType;
 }

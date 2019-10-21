@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import * as scheduler from "scheduler";
 import { spin } from "../common/spin";
 
 const classes = ["", "red", "blue"];
@@ -30,7 +31,9 @@ class List extends React.Component {
   }
 
   square = () => {
-    ReactDOM.unstable_deferredUpdates(() =>
+    // facebook/react#13488 seems to imply deferredUpdates is no longer necessary
+    // Also see note in changelog: facebook/react#13571
+    scheduler.unstable_scheduleCallback(() =>
       this.setState(prevState => ({
         values: prevState.values.map(value => value * value)
       }))
@@ -38,7 +41,7 @@ class List extends React.Component {
   };
 
   addChild = () => {
-    ReactDOM.unstable_deferredUpdates(() =>
+    scheduler.unstable_scheduleCallback(() =>
       this.setState(prevState => ({
         values: [...prevState.values, prevState.values.length + 1]
       }))
@@ -46,7 +49,7 @@ class List extends React.Component {
   };
 
   removeChild = () => {
-    ReactDOM.unstable_deferredUpdates(() =>
+    scheduler.unstable_scheduleCallback(() =>
       this.setState(prevState => ({
         values: prevState.values.slice(0, -1)
       }))
@@ -60,7 +63,7 @@ class List extends React.Component {
   };
 
   nextClassAndSquare = () => {
-    ReactDOM.unstable_deferredUpdates(() =>
+    scheduler.unstable_scheduleCallback(() =>
       this.setState(prevState => ({
         classIndex: getNextIndex(this.state.classIndex),
         values: prevState.values.map(value => value * value)
@@ -83,7 +86,7 @@ class List extends React.Component {
     const itemClass = getCurrentClass(this.state.classIndex);
 
     return (
-      <React.unstable_AsyncMode>
+      <React.unstable_ConcurrentMode>
         <button className="action" onClick={this.square}>
           ^2
         </button>
@@ -102,7 +105,7 @@ class List extends React.Component {
         {this.state.values.map((value, index) => (
           <Item className={itemClass} key={index} num={value} />
         ))}
-      </React.unstable_AsyncMode>
+      </React.unstable_ConcurrentMode>
     );
   }
 
