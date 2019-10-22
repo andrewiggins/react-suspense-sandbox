@@ -28,9 +28,9 @@ module.exports = {
   devtool: "source-map",
   resolve: {
     alias: {
-      react: expand("./lib/react.3db8b80e1.development.js"),
-      "react-dom": expand("./lib/react-dom.3db8b80e1.development.js"),
-      scheduler: expand("./lib/scheduler.3db8b80e1.development.js")
+      react: expand("./lib/old/react.3db8b80e1.development.js"),
+      "react-dom": expand("./lib/old/react-dom.3db8b80e1.development.js"),
+      scheduler: expand("./lib/old/scheduler.3db8b80e1.development.js")
     },
     extensions: [".tsx", ".ts", ".js", ".jsx"]
   },
