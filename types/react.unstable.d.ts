@@ -5,8 +5,4 @@ declare module "react" {
     maxDuration?: number;
     fallback?: JSX.Element;
   }
-
-  export class Suspense extends React.Component<PlaceholderProps> {}
-
-  export class unstable_ConcurrentMode extends React.Component<{}> {}
 }

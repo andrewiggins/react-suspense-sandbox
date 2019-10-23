@@ -25,7 +25,7 @@ declare module "react-dom" {
     hydrate: boolean;
   }
 
-  export function unstable_createRoot(
+  export function createRoot(
     container: DOMContainer,
     options?: RootOptions
   ): ReactRoot;
