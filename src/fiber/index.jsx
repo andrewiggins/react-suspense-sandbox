@@ -33,7 +33,7 @@ class List extends React.Component {
   square = () => {
     // facebook/react#13488 seems to imply deferredUpdates is no longer necessary
     // Also see note in changelog: facebook/react#13571
-    scheduler.unstable_scheduleCallback(() =>
+    scheduler.unstable_scheduleCallback(scheduler.unstable_IdlePriority, () =>
       this.setState(prevState => ({
         values: prevState.values.map(value => value * value)
       }))
@@ -41,7 +41,7 @@ class List extends React.Component {
   };
 
   addChild = () => {
-    scheduler.unstable_scheduleCallback(() =>
+    scheduler.unstable_scheduleCallback(scheduler.unstable_IdlePriority, () =>
       this.setState(prevState => ({
         values: [...prevState.values, prevState.values.length + 1]
       }))
@@ -49,7 +49,7 @@ class List extends React.Component {
   };
 
   removeChild = () => {
-    scheduler.unstable_scheduleCallback(() =>
+    scheduler.unstable_scheduleCallback(scheduler.unstable_IdlePriority, () =>
       this.setState(prevState => ({
         values: prevState.values.slice(0, -1)
       }))
@@ -63,7 +63,7 @@ class List extends React.Component {
   };
 
   nextClassAndSquare = () => {
-    scheduler.unstable_scheduleCallback(() =>
+    scheduler.unstable_scheduleCallback(scheduler.unstable_IdlePriority, () =>
       this.setState(prevState => ({
         classIndex: getNextIndex(this.state.classIndex),
         values: prevState.values.map(value => value * value)
@@ -86,7 +86,7 @@ class List extends React.Component {
     const itemClass = getCurrentClass(this.state.classIndex);
 
     return (
-      <React.unstable_ConcurrentMode>
+      <React.Fragment>
         <button className="action" onClick={this.square}>
           ^2
         </button>
@@ -105,7 +105,7 @@ class List extends React.Component {
         {this.state.values.map((value, index) => (
           <Item className={itemClass} key={index} num={value} />
         ))}
-      </React.unstable_ConcurrentMode>
+      </React.Fragment>
     );
   }
 
@@ -124,5 +124,5 @@ class List extends React.Component {
 }
 
 const container = document.getElementById("root");
-const root = ReactDOM.unstable_createRoot(container);
+const root = ReactDOM.createRoot(container);
 root.render(<List />);
