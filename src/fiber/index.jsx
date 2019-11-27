@@ -2,6 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as scheduler from "scheduler";
 import { spin } from "../common/spin";
+import { ContextExample } from "./ContextExample";
 
 const classes = ["", "red", "blue"];
 const getCurrentClass = index => classes[index];
@@ -9,7 +10,10 @@ const getNextIndex = currentIndex => (currentIndex + 1) % classes.length;
 
 class Item extends React.Component {
   shouldComponentUpdate(nextProps) {
-    return nextProps.num !== this.props.num || nextProps.className !== this.props.className;
+    return (
+      nextProps.num !== this.props.num ||
+      nextProps.className !== this.props.className
+    );
   }
 
   render() {
@@ -69,7 +73,7 @@ class List extends React.Component {
         values: prevState.values.map(value => value * value)
       }))
     );
-  }
+  };
 
   static getDerivedStateFromProps(props, state) {
     spin("List.getDerivedStateFromProps");
@@ -125,4 +129,9 @@ class List extends React.Component {
 
 const container = document.getElementById("root");
 const root = ReactDOM.createRoot(container);
-root.render(<List />);
+root.render(
+  <React.Fragment>
+    <List />
+    <ContextExample />
+  </React.Fragment>
+);
