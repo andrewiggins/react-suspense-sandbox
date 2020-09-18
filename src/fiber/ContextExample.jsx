@@ -2,7 +2,8 @@ import * as React from "react";
 
 const { Fragment } = React;
 
-const ctx = React.createContext({});
+const ctx = React.createContext(null);
+
 class MyProvider extends React.Component {
   constructor(props) {
     super(props);
@@ -32,7 +33,7 @@ const MyChild = () => {
     <React.Fragment>
       {Date.now()}
       <ctx.Consumer>
-        {value => {
+        {(value) => {
           return <p>{value}</p>;
         }}
       </ctx.Consumer>
@@ -42,8 +43,11 @@ const MyChild = () => {
 
 export function ContextExample() {
   return (
-    <MyProvider>
-      <MyChild />
-    </MyProvider>
+    <Fragment>
+      <h2>Context Example</h2>
+      <MyProvider>
+        <MyChild />
+      </MyProvider>
+    </Fragment>
   );
 }
