@@ -26,7 +26,7 @@ function Foo({ condition }) {
 
 async function main() {
   const container = document.getElementById("root");
-  const root = ReactDOM.unstable_createRoot(container);
+  const root = ReactDOM.createRoot(container);
 
   await root.render(<Foo condition={true} />);
   await root.render(<Foo condition={false} />);
