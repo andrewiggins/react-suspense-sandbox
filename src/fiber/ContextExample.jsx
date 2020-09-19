@@ -28,15 +28,19 @@ class MyProvider extends React.Component {
   }
 }
 
+const Time = () => <div>{Date.now()}</div>;
+
 const MyChild = () => {
   return (
     <React.Fragment>
       {Date.now()}
+      <Time />
       <ctx.Consumer>
         {(value) => {
           return <p>{value}</p>;
         }}
       </ctx.Consumer>
+      <Time />
     </React.Fragment>
   );
 };
