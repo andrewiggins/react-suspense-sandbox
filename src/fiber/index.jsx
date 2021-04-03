@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import * as scheduler from "scheduler";
-import { spin } from "../common/spin";
-import { ContextExample } from "./ContextExample";
+import { spin } from "../common/spin.js";
+import { ContextExample } from "./ContextExample.jsx";
 
 const classes = ["", "red", "blue"];
 const getCurrentClass = index => classes[index];

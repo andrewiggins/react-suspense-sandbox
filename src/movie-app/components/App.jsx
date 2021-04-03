@@ -1,8 +1,8 @@
 import React from "react";
 // import { CSSTransitionGroup } from 'react-transition-group';
-import Spinner from "./Spinner";
-import MovieListPage from "./MovieListPage";
-import MoviePage from "./MoviePage";
+import Spinner from "./Spinner.jsx";
+import MovieListPage from "./MovieListPage.jsx";
+import MoviePage from "./MoviePage.jsx";
 
 // ------------------------------
 // Main screen
@@ -11,7 +11,7 @@ import MoviePage from "./MoviePage";
 export default class App extends React.PureComponent {
   state = {
     currentId: null,
-    showDetail: false
+    showDetail: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -23,17 +23,17 @@ export default class App extends React.PureComponent {
     }
   }
 
-  handleMovieClick = id => {
+  handleMovieClick = (id) => {
     this.setState({
       currentId: id,
-      showDetail: true
+      showDetail: true,
     });
   };
 
   handleBackClick = () => {
     this.setState({
       currentId: null,
-      showDetail: false
+      showDetail: false,
     });
   };
 

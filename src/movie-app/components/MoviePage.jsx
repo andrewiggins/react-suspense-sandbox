@@ -1,6 +1,6 @@
 import React from "react";
-import Spinner from "./Spinner";
-import { movieDetailsJSON, movieReviewsJSON } from "../api/data";
+import Spinner from "./Spinner.jsx";
+import { movieDetailsJSON, movieReviewsJSON } from "../api/data.js";
 
 // ------------------------------
 // Individual movie page
@@ -67,7 +67,9 @@ function MovieReviews(props) {
   const reviews = movieReviewsJSON[props.id];
   return (
     <div className="MovieReviews">
-      {reviews.map(review => <MovieReview key={review.id} {...review} />)}
+      {reviews.map((review) => (
+        <MovieReview key={review.id} {...review} />
+      ))}
     </div>
   );
 }

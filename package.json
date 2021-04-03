@@ -1,11 +1,12 @@
 {
   "name": "react-suspense-sandbox",
+  "type": "module",
   "version": "1.0.0",
   "description": "Sandbox for playing around with React suspense",
   "main": "index.js",
   "scripts": {
-    "build": "wp --config webpack.config.js",
-    "start": "wp --config webpack.config.js --watch"
+    "build": "wmr build --public src",
+    "start": "wmr --reload"
   },
   "repository": {
     "type": "git",
@@ -26,21 +27,10 @@
   "devDependencies": {
     "@types/react": "^16.4.6",
     "@types/react-dom": "^16.0.6",
-    "chokidar": "^3.5.1",
-    "css-loader": "^3.2.0",
-    "file-loader": "^4.2.0",
-    "has-flag": "^4.0.0",
-    "html-webpack-plugin": "^3.2.0",
     "node-sass": "^5.0.0",
-    "sass-loader": "^10.1.1",
-    "style-loader": "^1.0.0",
-    "ts-loader": "^4.4.2",
-    "typescript": "^3.6.4",
-    "webpack": "^4.41.2",
-    "webpack-bundle-analyzer": "^3.6.0",
-    "webpack-cli": "^3.3.9",
-    "webpack-nano": "^0.8.1",
-    "webpack-plugin-serve": "^0.12.1"
+    "simple-code-frame": "^1.1.1",
+    "sucrase": "^3.17.1",
+    "wmr": "^1.5.1"
   },
   "dependencies": {
     "react-cache": "^2.0.0-alpha.0"

@@ -1,12 +1,12 @@
 import React from "react";
-import { movieListJSON } from "../api/data";
+import { movieListJSON } from "../api/data.js";
 
 export default function MovieListPage(props) {
   const movies = movieListJSON;
   return (
     <div className="MovieListPage">
       <h1>Top Box Office 🍿</h1>
-      {movies.map(movie => (
+      {movies.map((movie) => (
         <MovieListItem
           key={movie.id}
           {...movie}

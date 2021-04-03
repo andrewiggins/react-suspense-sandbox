@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { unstable_createResource as createResource } from "react-cache";
 import { unstable_scheduleCallback } from "scheduler";
-import { getText } from "./getText";
+import { getText } from "./getText.js";
 
 const readText = createResource(getText);
 
@@ -20,7 +20,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       value: 0,
-      valueAsync: 0
+      valueAsync: 0,
     };
 
     readText.preload(0);
