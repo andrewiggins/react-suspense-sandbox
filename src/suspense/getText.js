@@ -1,4 +1,4 @@
-import { delay } from '../common/delay';
+import { delay } from "../common/delay";
 
 export function getText(value, ms = 5000) {
   if (value == null) {

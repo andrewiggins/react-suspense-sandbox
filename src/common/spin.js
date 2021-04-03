@@ -1,4 +1,4 @@
-export function spin(name='', ms=0.1) {
+export function spin(name = "", ms = 0.1) {
   start(name);
 
   let begin = performance.now();
@@ -10,8 +10,8 @@ export function spin(name='', ms=0.1) {
   stop(name);
 }
 
-const getStartName = name => `${name}-Start`;
-const getStopName = name => `${name}-Stop`;
+const getStartName = (name) => `${name}-Start`;
+const getStopName = (name) => `${name}-Stop`;
 
 function start(name) {
   if (name) {

@@ -10,3 +10,6 @@ After running `yarn build` each file comes from:
 
 The build automatically produces ESM for react and react-dom but not scheduler
 so the scheduler package has been manually updated to ESM.
+
+We run prettier on the build output in this repo to make comparisons more
+consistent and less dependent on build process whitespace handling

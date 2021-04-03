@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "build": "wmr build --public src",
-    "start": "wmr --reload"
+    "start": "wmr --reload",
+    "lint": "prettier -w index.html \"src/**/*.{js,jsx,html,md}\" \"types/**/*\" \"lib/*\""
   },
   "repository": {
     "type": "git",

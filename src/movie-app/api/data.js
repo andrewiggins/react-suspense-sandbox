@@ -13,23 +13,23 @@ export const movieListJSON = [
     title: "Black Panther",
     rating: "98%",
     gross: "$403.6M",
-    fresh: true
+    fresh: true,
   },
   {
     id: 4,
     title: "A Fantastic Woman",
     rating: "93%",
     gross: "$0.6M",
-    fresh: true
+    fresh: true,
   },
   {
     id: 5,
     title: "Father Figures",
     rating: "22%",
     gross: "$17.5M",
-    fresh: false
+    fresh: false,
   },
-  { id: 6, title: "Early Man", rating: "81%", gross: "$6.8M", fresh: true }
+  { id: 6, title: "Early Man", rating: "81%", gross: "$6.8M", fresh: true },
 ];
 
 export const movieDetailsJSON = {
@@ -40,7 +40,7 @@ export const movieDetailsJSON = {
     audience: "81%",
     consensus:
       "Lady Bird delivers fresh insights about the turmoil of adolescence -- and reveals writer-director Greta Gerwig as a fully formed filmmaking talent.",
-    poster: birdPosterUrl
+    poster: birdPosterUrl,
   },
   2: {
     title: "Downsizing",
@@ -49,7 +49,7 @@ export const movieDetailsJSON = {
     audience: "23%",
     consensus:
       "Downsizing assembles a talented cast in pursuit of some truly interesting ideas -- which may be enough for some audiences to forgive the final product's frustrating shortcomings.",
-    poster: downsizingPosterUrl
+    poster: downsizingPosterUrl,
   },
   3: {
     title: "Black Panther",
@@ -58,7 +58,7 @@ export const movieDetailsJSON = {
     audience: "77%",
     consensus:
       "Black Panther elevates superhero cinema to thrilling new heights while telling one of the MCU's most absorbing stories -- and introducing some of its most fully realized characters.",
-    poster: pantherPosterUrl
+    poster: pantherPosterUrl,
   },
   4: {
     title: "A Fantastic Woman",
@@ -67,7 +67,7 @@ export const movieDetailsJSON = {
     audience: "82%",
     consensus:
       "Subtle and tender, A Fantastic Woman handles its timely, sensitive subject matter with care.",
-    poster: womanPosterUrl
+    poster: womanPosterUrl,
   },
   5: {
     title: "Father Figures",
@@ -75,7 +75,7 @@ export const movieDetailsJSON = {
     fresh: false,
     audience: "36%",
     consensus: "No consensus yet.",
-    poster: figuresPosterUrl
+    poster: figuresPosterUrl,
   },
   6: {
     title: "Early Man",
@@ -84,8 +84,8 @@ export const movieDetailsJSON = {
     audience: "57%",
     consensus:
       "Early Man isn't quite as evolved as Aardman's best work, but still retains the unique visuals and sweet humor that have made the studio a favorite among animation enthusiasts.",
-    poster: manPosterUrl
-  }
+    poster: manPosterUrl,
+  },
 };
 
 export const movieReviewsJSON = {
@@ -94,5 +94,5 @@ export const movieReviewsJSON = {
   3: [{ id: 0, fresh: true, text: "Black Panther is not" }],
   4: [{ id: 0, fresh: true, text: "Given it could be" }],
   5: [{ id: 0, fresh: false, text: "Limp jokes, bad chemistry" }],
-  6: [{ id: 0, fresh: false, text: "The story is thin, " }]
+  6: [{ id: 0, fresh: false, text: "The story is thin, " }],
 };

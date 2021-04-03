@@ -1,4 +1,4 @@
-import {movieDetailsJSON, movieListJSON, movieReviewsJSON} from './data';
+import { movieDetailsJSON, movieListJSON, movieReviewsJSON } from "./data";
 
 const defaultDelay = 1000;
 
@@ -15,5 +15,5 @@ export function fetchMovieReviews(id) {
 }
 
 function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }

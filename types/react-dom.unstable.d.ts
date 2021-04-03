@@ -8,15 +8,15 @@ declare module "react-dom" {
   }
 
   interface Batch {
-    render(children: JSX.Element): Work,
-    then(onComplete: () => any): void,
-    commit(): void,
+    render(children: JSX.Element): Work;
+    then(onComplete: () => any): void;
+    commit(): void;
   }
 
   interface ReactRoot {
-    render(children: JSX.Element, callback?: () => any): Work,
-    unmount(callback?: () => any): Work,
-    createBatch(): Batch,
+    render(children: JSX.Element, callback?: () => any): Work;
+    unmount(callback?: () => any): Work;
+    createBatch(): Batch;
   }
 
   type DOMContainer = Element | Document;

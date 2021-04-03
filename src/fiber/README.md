@@ -8,12 +8,12 @@ This document is based on React as of commit 095dd5049 (2018-07-07).
 
 ## Prior work
 
-* [A carton introduction to Fiber - React Conf
+- [A carton introduction to Fiber - React Conf
   2017](https://www.youtube.com/watch?v=ZCuYPiUIONs) by Lin Clark ([My
   Notes](./fiber-cartoon-notes.md))
-* [Fiber Principles: Contributing to
+- [Fiber Principles: Contributing to
   Fiber](https://github.com/facebook/react/issues/7942) by Sebastian Markbåge
-* [React Fiber
+- [React Fiber
   Architecture](https://github.com/acdlite/react-fiber-architecture) by Andrew
   Clark
 
@@ -117,7 +117,7 @@ pair is property, and the second item is the new value. Such as the below:
 
 ### To expand
 
-* How does React manage multiple pending updates? What is the
+- How does React manage multiple pending updates? What is the
   `Fiber.updateQueue` and how is it managed? Are all updates added to it? What
   updates are enqueued?
 
@@ -136,27 +136,29 @@ pair is property, and the second item is the new value. Such as the below:
   maintained.
 
   Stack frame for `updateClassInstance`:
-    1. `ReactFiberBeginWork.beginWork`
-    2. `ReactFiberBeginWork.updateClassComponent`
-    3. `ReactFiberClassComponent.updatedClassInstance`
-    4. `ReactUpdateQueue.processUpdateQueue`
 
-* TODO: Add description of `ReactUpdateQueue.commitUpdateQueue`. I think it is
+  1. `ReactFiberBeginWork.beginWork`
+  2. `ReactFiberBeginWork.updateClassComponent`
+  3. `ReactFiberClassComponent.updatedClassInstance`
+  4. `ReactUpdateQueue.processUpdateQueue`
+
+- TODO: Add description of `ReactUpdateQueue.commitUpdateQueue`. I think it is
   in charge of calling callbacks and updating the updateQueue after updates have
   been applied
 
-* TODO: Add tracing for all mechanisms that requestWork and if they modify any
+- TODO: Add tracing for all mechanisms that requestWork and if they modify any
   `updateQueue`s
 
-* TODO: Write paragraphs describing
-    * How work is commited
+- TODO: Write paragraphs describing
 
-    * How effects are tracked using `firstEffect` and `lastEffect`.
+  - How work is commited
 
-      I think `firstEffect` and `lastEffect` make up the linked list of Fibers
-      that have an `updatePayload` to commit to the DOM.
+  - How effects are tracked using `firstEffect` and `lastEffect`.
 
-    * How the updateQueue is managed.
+    I think `firstEffect` and `lastEffect` make up the linked list of Fibers
+    that have an `updatePayload` to commit to the DOM.
+
+  - How the updateQueue is managed.
 
 ## Method descriptions
 
@@ -168,8 +170,8 @@ pair is property, and the second item is the new value. Such as the below:
   function renderRoot(
     root: FiberRoot,
     isYieldy: boolean,
-    isExpired: boolean,
-  ): void
+    isExpired: boolean
+  ): void;
   ```
 
   Runs the `workLoop`. Also handles errors thrown while performing work
@@ -213,8 +215,7 @@ pair is property, and the second item is the new value. Such as the below:
   Fibers until an exit condition is met (such as reaching the root, or finding a
   sibling Fiber to work on, etc.)
 
-  TODO: Investigate comment `// Do not append effects to parents if a sibling
-  failed to complete`
+  TODO: Investigate comment `// Do not append effects to parents if a sibling failed to complete`
 
   TODO: Investigate what this method does when a component throws
 
@@ -224,8 +225,8 @@ pair is property, and the second item is the new value. Such as the below:
   function completeRoot(
     root: FiberRoot,
     finishedWork: Fiber,
-    expirationTime: ExpirationTime,
-  ): void
+    expirationTime: ExpirationTime
+  ): void;
   ```
 
   Commits completed work on this root by either scheduling the finished work to
@@ -260,8 +261,8 @@ pair is property, and the second item is the new value. Such as the below:
   function beginWork(
     current: Fiber | null,
     workInProgress: Fiber,
-    renderExpirationTime: ExpirationTime,
-  ): Fiber | null
+    renderExpirationTime: ExpirationTime
+  ): Fiber | null;
   ```
 
   Updates a `workInProgress` fiber (e.g. a class component or functional
@@ -276,7 +277,7 @@ pair is property, and the second item is the new value. Such as the below:
   function completeWork(
     current: Fiber | null,
     workInProgress: Fiber,
-    renderExpirationTime: ExpirationTime,
+    renderExpirationTime: ExpirationTime
   ): Fiber | null;
   ```
 
@@ -326,8 +327,7 @@ pair is property, and the second item is the new value. Such as the below:
   ): void;
   ```
 
-  Calls `ReactDOMFiberComponent.updateProperties ->
-  ReactDOMFiberComponent.updateDOMProperties` to apply a diff.
+  Calls `ReactDOMFiberComponent.updateProperties -> ReactDOMFiberComponent.updateDOMProperties` to apply a diff.
 
 - commitTextUpdate
 

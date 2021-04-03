@@ -5,8 +5,8 @@ import { spin } from "../common/spin.js";
 import { ContextExample } from "./ContextExample.jsx";
 
 const classes = ["", "red", "blue"];
-const getCurrentClass = index => classes[index];
-const getNextIndex = currentIndex => (currentIndex + 1) % classes.length;
+const getCurrentClass = (index) => classes[index];
+const getNextIndex = (currentIndex) => (currentIndex + 1) % classes.length;
 
 class Item extends React.Component {
   shouldComponentUpdate(nextProps) {
@@ -30,7 +30,7 @@ class List extends React.Component {
 
     this.state = {
       classIndex: 0,
-      values: [1, 2, 3]
+      values: [1, 2, 3],
     };
   }
 
@@ -38,39 +38,39 @@ class List extends React.Component {
     // facebook/react#13488 seems to imply deferredUpdates is no longer necessary
     // Also see note in changelog: facebook/react#13571
     scheduler.unstable_scheduleCallback(scheduler.unstable_IdlePriority, () =>
-      this.setState(prevState => ({
-        values: prevState.values.map(value => value * value)
+      this.setState((prevState) => ({
+        values: prevState.values.map((value) => value * value),
       }))
     );
   };
 
   addChild = () => {
     scheduler.unstable_scheduleCallback(scheduler.unstable_IdlePriority, () =>
-      this.setState(prevState => ({
-        values: [...prevState.values, prevState.values.length + 1]
+      this.setState((prevState) => ({
+        values: [...prevState.values, prevState.values.length + 1],
       }))
     );
   };
 
   removeChild = () => {
     scheduler.unstable_scheduleCallback(scheduler.unstable_IdlePriority, () =>
-      this.setState(prevState => ({
-        values: prevState.values.slice(0, -1)
+      this.setState((prevState) => ({
+        values: prevState.values.slice(0, -1),
       }))
     );
   };
 
   nextClass = () => {
     this.setState({
-      classIndex: getNextIndex(this.state.classIndex)
+      classIndex: getNextIndex(this.state.classIndex),
     });
   };
 
   nextClassAndSquare = () => {
     scheduler.unstable_scheduleCallback(scheduler.unstable_IdlePriority, () =>
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         classIndex: getNextIndex(this.state.classIndex),
-        values: prevState.values.map(value => value * value)
+        values: prevState.values.map((value) => value * value),
       }))
     );
   };
