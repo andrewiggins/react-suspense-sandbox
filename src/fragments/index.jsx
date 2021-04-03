@@ -1,10 +1,9 @@
-import * as React from "react";
-import { Component, Fragment } from "react"
-import * as ReactDOM from "react-dom";
+import React from "react";
+import ReactDOM from "react-dom";
 
 const ops = [];
 
-class Stateful extends Component {
+class Stateful extends React.Component {
   componentDidUpdate() {
     ops.push("Update Stateful");
   }
@@ -17,10 +16,10 @@ function Foo({ condition }) {
   return condition ? (
     <Stateful key="a" />
   ) : (
-    <Fragment>
+    <React.Fragment>
       <Stateful key="a" />
       <div key="b">World</div>
-    </Fragment>
+    </React.Fragment>
   );
 }
 

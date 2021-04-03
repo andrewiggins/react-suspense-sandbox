@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import React from "react";
+import ReactDOM from "react-dom";
 import { unstable_createResource as createResource } from "react-cache";
 import { unstable_scheduleCallback } from "scheduler";
 import { getText } from "./getText";

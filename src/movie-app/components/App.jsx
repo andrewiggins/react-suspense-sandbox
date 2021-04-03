@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 // import { CSSTransitionGroup } from 'react-transition-group';
 import Spinner from "./Spinner";
 import MovieListPage from "./MovieListPage";
