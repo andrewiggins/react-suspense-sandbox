@@ -10,7 +10,7 @@ this repo
 1. Install NodeJS
 2. Run `npm install`
 3. Run `npm start`
-4. Navigate your browser to `localhost:8080/fiber` or `localhost:8080/suspense`
+4. Navigate your browser to `localhost:8080/src/fiber/index.html`
 5. Open the browser devtools to the Console tab
 6. Click on some buttons on the webpage to see a function trace through React
 
