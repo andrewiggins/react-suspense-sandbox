@@ -1,5 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { unstable_createResource as createResource } from "react-cache";
 import { unstable_scheduleCallback } from "scheduler";
 import { getText } from "./getText.js";
@@ -75,5 +75,5 @@ class App extends React.Component {
 }
 
 const container = document.getElementById("root");
-const root = ReactDOM.createRoot(container);
+const root = ReactDOM.unstable_createRoot(container);
 root.render(<App />);

@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 const { Fragment } = React;
 
@@ -32,7 +32,7 @@ const Time = () => <div>{Date.now()}</div>;
 
 const MyChild = () => {
   return (
-    <React.Fragment>
+    <Fragment>
       {Date.now()}
       <Time />
       <ctx.Consumer>
@@ -41,7 +41,7 @@ const MyChild = () => {
         }}
       </ctx.Consumer>
       <Time />
-    </React.Fragment>
+    </Fragment>
   );
 };
 

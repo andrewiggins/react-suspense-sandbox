@@ -1,5 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 const ops = [];
 
@@ -25,7 +25,7 @@ function Foo({ condition }) {
 
 async function main() {
   const container = document.getElementById("root");
-  const root = ReactDOM.createRoot(container);
+  const root = ReactDOM.unstable_createRoot(container);
 
   await root.render(<Foo condition={true} />);
   await root.render(<Foo condition={false} />);

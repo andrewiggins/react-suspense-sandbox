@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { movieListJSON } from "../api/data.js";
 
 export default function MovieListPage(props) {

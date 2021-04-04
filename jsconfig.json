@@ -6,10 +6,11 @@
     "moduleResolution": "node",
     "jsx": "react",
     "esModuleInterop": true,
-    "noEmit": true
+    "noEmit": true,
+    "types": ["react/experimental", "react-dom/experimental"]
   },
   "include": [
-    "./types/**/*.ts",
+    // "./types/**/*.ts",
     "./src/**/*.js",
     "./src/**/*.jsx",
     "./src/**/*.ts",

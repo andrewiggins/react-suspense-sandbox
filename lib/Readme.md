@@ -1,6 +1,6 @@
 # React + tracing
 
-These files are generated from andrewiggins/react#esm-build.
+These files are generated from github.com/andrewiggins/react, the esm-tracing branch.
 
 After running `yarn build` each file comes from:
 

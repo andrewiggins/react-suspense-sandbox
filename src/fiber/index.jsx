@@ -1,5 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 import * as scheduler from "scheduler";
 import { spin } from "../common/spin.js";
 import { ContextExample } from "./ContextExample.jsx";
@@ -129,7 +129,7 @@ class List extends React.Component {
 }
 
 const container = document.getElementById("root");
-const root = ReactDOM.createRoot(container);
+const root = ReactDOM.unstable_createRoot(container);
 root.render(
   <React.Fragment>
     <List />

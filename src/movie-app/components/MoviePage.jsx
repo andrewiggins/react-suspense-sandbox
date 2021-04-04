@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import Spinner from "./Spinner.jsx";
 import { movieDetailsJSON, movieReviewsJSON } from "../api/data.js";
 

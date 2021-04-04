@@ -38,8 +38,8 @@ export default async function (config) {
   });
 
   config.aliases = {
-    react: expand("./lib/react.5faf377df.development.js"),
-    "react-dom": expand("./lib/react-dom.5faf377df.development.js"),
-    scheduler: expand("./lib/scheduler.5faf377df.development.js"),
+    react: expand("./lib/react.b4f119cdf.development.js"),
+    "react-dom": expand("./lib/react-dom.b4f119cdf.development.js"),
+    scheduler: expand("./lib/scheduler.b4f119cdf.development.js"),
   };
 }
