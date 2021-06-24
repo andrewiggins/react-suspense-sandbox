@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom";
 import * as scheduler from "scheduler";
 import { spin } from "../common/spin.js";
 import { ContextExample } from "./ContextExample.jsx";
+import { MemoedExample } from "./MemoedExample.jsx";
 
 const classes = ["", "red", "blue"];
 const getCurrentClass = (index) => classes[index];
@@ -134,5 +135,6 @@ root.render(
   <React.Fragment>
     <List />
     <ContextExample />
+    <MemoedExample />
   </React.Fragment>
 );
