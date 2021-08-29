@@ -21,6 +21,30 @@ const { Fragment } = React;
   (3) https://github.com/facebook/react/blob/b4f119cdf1defe2437e00022f670c6ef818cd43f/packages/react-reconciler/src/ReactFiberBeginWork.new.js#L3147
 */
 
+/*
+  # To investigate:
+
+  ## How React propagates context value changes
+
+  Relevant files and functions:
+  - updateContextProvider
+    Called when a Provider is rendered
+    https://github.com/facebook/react/blob/46a0f050aacd8b2159b8db99b599a4b69e682189/packages/react-reconciler/src/ReactFiberBeginWork.new.js#L3114
+
+  - pushProvider
+    Not sure what this does yet
+    https://github.com/facebook/react/blob/46a0f050aacd8b2159b8db99b599a4b69e682189/packages/react-reconciler/src/ReactFiberNewContext.new.js#L87
+
+  - propagateContextChange
+    Actually marks dirty context consumers, though not when LazyContextPropagation is on
+    https://github.com/facebook/react/blob/46a0f050aacd8b2159b8db99b599a4b69e682189/packages/react-reconciler/src/ReactFiberNewContext.new.js#L169
+
+  Current experiment to change the behavior:
+  PR: https://github.com/facebook/react/pull/20890
+  RFC: https://github.com/reactjs/rfcs/pull/118
+
+*/
+
 
 const ctx = React.createContext(null);
 
