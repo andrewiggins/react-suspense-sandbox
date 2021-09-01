@@ -89,6 +89,26 @@ At the end of this work loop, the root Fiber has a linked list to all the Fibers
 that have updates to apply: this is the effect list. It is linked to on the
 `Fiber.firstEffect` and `Fiber.lastEffect` properties.
 
+> Note the above is out of date. React has since removed the `firstEffect` and
+> `lastEffect` linked list from the Fiber structure. Some related PRs and
+> issues:
+>
+> - [#10008: Remove progressed work](https://github.com/facebook/react/pull/10008)
+> - [#8830: [Umbrella] Async rendering](https://github.com/facebook/react/issues/8830)
+> - [#11566: [Umbrella] New algorithm for resuming interrupted work](https://github.com/facebook/react/issues/11566)
+> - [#19673: Remove remaining references to effect list](https://github.com/facebook/react/pull/19673)
+>
+> PRs and commits where effect traversal is replaced with fiber traversal:
+> - [Convert mutation phase to depth-first traversal](https://github.com/facebook/react/commit/95feb0e701a5ae20996e8cc6c4acd0f504d5985a)
+> - [#20595: Re-land refactored implementation of layout phase in new fork](https://github.com/facebook/react/pull/20595)
+> - [#20586: Re-land refactored implementation of mutation phase in new fork](https://github.com/facebook/react/pull/20596)
+> - [#20622: Convert snapshot phase ("before mutation") to depth-first traversal](https://github.com/facebook/react/pull/20622)
+>
+> Other possibly related PRs:
+> - [#19322: Effects list refactor continued: did-bailout flag](https://github.com/facebook/react/pull/19322)
+> - [#19374: Effects list refactor continued: passive effects traversal](https://github.com/facebook/react/pull/19374)
+> - [#20094: Traverse commit phase effects iteratively](https://github.com/facebook/react/pull/20094)
+
 #### Commit phase
 
 TODO: Expand
