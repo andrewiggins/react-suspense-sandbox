@@ -99,12 +99,14 @@ that have updates to apply: this is the effect list. It is linked to on the
 > - [#19673: Remove remaining references to effect list](https://github.com/facebook/react/pull/19673)
 >
 > PRs and commits where effect traversal is replaced with fiber traversal:
+>
 > - [Convert mutation phase to depth-first traversal](https://github.com/facebook/react/commit/95feb0e701a5ae20996e8cc6c4acd0f504d5985a)
 > - [#20595: Re-land refactored implementation of layout phase in new fork](https://github.com/facebook/react/pull/20595)
 > - [#20586: Re-land refactored implementation of mutation phase in new fork](https://github.com/facebook/react/pull/20596)
 > - [#20622: Convert snapshot phase ("before mutation") to depth-first traversal](https://github.com/facebook/react/pull/20622)
 >
 > Other possibly related PRs:
+>
 > - [#19322: Effects list refactor continued: did-bailout flag](https://github.com/facebook/react/pull/19322)
 > - [#19374: Effects list refactor continued: passive effects traversal](https://github.com/facebook/react/pull/19374)
 > - [#20094: Traverse commit phase effects iteratively](https://github.com/facebook/react/pull/20094)
@@ -134,6 +136,33 @@ pair is property, and the second item is the new value. Such as the below:
 ```ts
 ["className", "blue", "children", "16"];
 ```
+
+### Double buffering (fiber.alternate)
+
+Some learnings about how React manages the alternate property:
+
+Scheduling and Starting work:
+
+- `root.current` contains the reference to the current tree. `root.finishedWork`
+  contains a completed workInProgress tree.
+- `perform*WorkOnRoot` is invoked with the root to do work on
+  - `ensureRootIsScheduled` schedules `perform*WorkOnRoot` bound to the root
+  - `renderRootConcurrent` -> `prepareFreshStack` setups the `workInProgress`
+    global by calling `createWorkInProgress` on `root.current`
+
+Preparing children:
+
+- `reconcileChildFibers` and related helpers determine whether to reuse an
+  existing fiber `createWorkInProgress(fiber)` or to construct a new fiber
+  `createFiberFromElement`
+- Also, `cloneChildFibers` prepares a workInProgress's children if no work is
+  done on that workInProgress but its children need to be worked on
+  (`bailoutOnAlreadyFinishedWork` uses this)
+
+Committing/finishing work:
+
+- `commitRoot` flips the current (`root.current`) pointer to the completed
+  `workInProgress`
 
 ### To expand
 
