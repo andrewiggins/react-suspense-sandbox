@@ -164,6 +164,18 @@ Committing/finishing work:
 - `commitRoot` flips the current (`root.current`) pointer to the completed
   `workInProgress`
 
+### How SetState works
+
+- `dispatchAction` is called which primarily does:
+  - optimizations around calling setState during render and skipping redundant states
+  - places the update on the update queue
+  - calls `scheduleUpdateOnFiber`, which:
+    - `markUpdateLaneFromFiberToRoot`: climbs up the tree marking this fiber's
+      parents as having work on children to do (setting `childLanes`), which
+      also finds the FiberRoot.
+    - `ensureRootIsScheduled`: ensures the root of this fiber tree is scheduled
+      to do some work
+
 ### To expand
 
 - How does React manage multiple pending updates? What is the
