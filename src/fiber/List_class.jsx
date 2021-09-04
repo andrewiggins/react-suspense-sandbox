@@ -100,7 +100,7 @@ export class List extends React.Component {
           Remove child
         </button>
         <button className="action" onClick={this.nextClass}>
-          Next class
+          Next class (sync)
         </button>
         <button className="action" onClick={this.nextClassAndSquare}>
           Next class and square

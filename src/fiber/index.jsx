@@ -1,11 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { List } from "./List_class.jsx";
+import { List } from "./List.jsx";
+import { List as ListClass } from "./List_class.jsx";
 import { ContextExample } from "./ContextExample.jsx";
 import { MemoedExample } from "./MemoedExample.jsx";
 
 const examples = {
   List: List,
+  "List (class)": ListClass,
   Context: ContextExample,
   Memo: MemoedExample,
 };
