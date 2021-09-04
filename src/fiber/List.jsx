@@ -7,9 +7,10 @@ const getCurrentClass = (index) => classes[index];
 const getNextIndex = (currentIndex) => (currentIndex + 1) % classes.length;
 
 /** @type {React.FC<{ num: number, className: string }>} */
-const Item = React.memo(({ num, className }) => {
+const MemoedListItem = React.memo(function ListItem({ num, className }) {
   return <div className={className}>{num}</div>;
 });
+MemoedListItem.displayName = "MemoedListItem";
 
 export function List() {
   spin("List.render");
@@ -99,7 +100,7 @@ export function List() {
         Next class and square
       </button>
       {values.map((value, index) => (
-        <Item className={itemClass} key={index} num={value} />
+        <MemoedListItem className={itemClass} key={index} num={value} />
       ))}
     </React.Fragment>
   );
