@@ -4,6 +4,10 @@ This project contains code used to explore how React Suspense works using as
 simple as possible examples. Learnings from exploring how it works are added
 here.
 
+> Currently this project doesn't build due to some issue with react-cache. It
+> appears released React suspense for data fetching may not use this package so
+> I'm not focusing on fixing it right now
+
 ## Initial thoughts
 
 - Suspense **pauses** the rendering of a subtree. Meaning updates are queued but
