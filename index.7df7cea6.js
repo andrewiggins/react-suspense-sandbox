@@ -4,12 +4,13 @@ import {
   P as PureComponent,
   i as createRoot,
 } from "./chunks/react-dom.b4f119cdf.development.6444d606.js";
-const birdPosterUrl = "/assets/bird.64324c57.jpg";
-const downsizingPosterUrl = "/assets/downsizing.0dcb0b8a.jpg";
-const pantherPosterUrl = "/assets/panther.69955e7f.jpg";
-const womanPosterUrl = "/assets/woman.8a61599a.jpg";
-const figuresPosterUrl = "/assets/figures.fd28d63f.jpg";
-const manPosterUrl = "/assets/man.198181a0.jpg";
+const birdPosterUrl = "/react-suspense-sandbox/assets/bird.64324c57.jpg";
+const downsizingPosterUrl =
+  "/react-suspense-sandbox/assets/downsizing.0dcb0b8a.jpg";
+const pantherPosterUrl = "/react-suspense-sandbox/assets/panther.69955e7f.jpg";
+const womanPosterUrl = "/react-suspense-sandbox/assets/woman.8a61599a.jpg";
+const figuresPosterUrl = "/react-suspense-sandbox/assets/figures.fd28d63f.jpg";
+const manPosterUrl = "/react-suspense-sandbox/assets/man.198181a0.jpg";
 const movieListJSON = [
   { id: 1, title: "Lady Bird", rating: "99%", gross: "$52.9M", fresh: true },
   { id: 2, title: "Downsizing", rating: "51%", gross: "$24.5M", fresh: false },
@@ -304,7 +305,7 @@ function style(filename) {
     document.head.appendChild(node);
   }
 }
-style("/assets/styles.5bf5249f.css");
+style("/react-suspense-sandbox/assets/styles.5bf5249f.css");
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(createElement$1(App, null));
