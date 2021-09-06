@@ -23,6 +23,7 @@ export default function (config) {
           transforms: ["jsx"],
           production: true,
           filePath: id,
+          disableESTransforms: true,
         });
 
         return {
