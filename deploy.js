@@ -24,6 +24,7 @@ ghPages.publish(
       "chunks/**/*",
       "src/**/index.html",
       "!**/react-method-tracing*",
+      "!deploy.js",
     ],
     user,
   },
