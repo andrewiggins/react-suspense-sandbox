@@ -5,7 +5,7 @@
   "description": "Sandbox for playing around with React suspense",
   "main": "index.js",
   "scripts": {
-    "build": "wmr build --public src",
+    "build": "wmr build --no-minify",
     "start": "wmr --reload",
     "lint": "prettier -w index.html \"src/**/*.{js,jsx,html,md}\" \"types/**/*\" \"lib/*\""
   },
@@ -31,7 +31,7 @@
     "sass": "^1.38.2",
     "simple-code-frame": "^1.1.1",
     "sucrase": "^3.17.1",
-    "wmr": "^1.5.1"
+    "wmr": "^3.7.0"
   },
   "dependencies": {
     "react-cache": "^2.0.0-alpha.0"

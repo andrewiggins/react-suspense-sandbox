@@ -7,7 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const expand = (...args) => path.join(__dirname, ...args);
 
 /** @type {(config: import('wmr').Options) => void} */
-export default async function (config) {
+export default function (config) {
   config.features = { preact: false };
 
   config.plugins.push({
@@ -37,7 +37,7 @@ export default async function (config) {
     },
   });
 
-  config.aliases = {
+  config.alias = {
     react: expand("./lib/react.b4f119cdf.development.js"),
     "react-dom": expand("./lib/react-dom.b4f119cdf.development.js"),
     scheduler: expand("./lib/scheduler.b4f119cdf.development.js"),
