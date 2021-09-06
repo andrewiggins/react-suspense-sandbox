@@ -6,30 +6,26 @@ import ghPages from "gh-pages";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const p = (...args) => join(__dirname, ...args);
 
-async function main() {
-  let user;
-  if (process.env.GITHUB_WORKFLOW) {
-    user = {
-      name: "github-actions-bot",
-      email: "support+actions@github.com",
-    };
-  }
-
-  ghPages.publish(
-    p("dist"),
-    {
-      src: [
-        "index.html",
-        "*.js",
-        "assets/**/*",
-        "chunks/**/*",
-        "src/**/index.html",
-        "!**/react-method-tracing*",
-      ],
-      user,
-    },
-    () => ghPages.clean()
-  );
+let user;
+if (process.env.GITHUB_WORKFLOW) {
+  user = {
+    name: "github-actions-bot",
+    email: "support+actions@github.com",
+  };
 }
 
-main();
+ghPages.publish(
+  p("dist"),
+  {
+    src: [
+      "index.html",
+      "*.js",
+      "assets/**/*",
+      "chunks/**/*",
+      "src/**/index.html",
+      "!**/react-method-tracing*",
+    ],
+    user,
+  },
+  () => ghPages.clean()
+);
