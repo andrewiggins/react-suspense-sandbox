@@ -4,6 +4,10 @@ import { transform } from "sucrase";
 import { createCodeFrame } from "simple-code-frame";
 import { defineConfig } from "wmr";
 
+const reactCommit = "d1f51f345";
+/** @type {"development" | "profiling.min" | "production.min"} */
+const buildType = "development";
+
 // @ts-ignore
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const expand = (...args) => path.join(__dirname, ...args);
@@ -16,9 +20,9 @@ export default defineConfig((config) => {
       preact: false,
     },
     alias: {
-      react: expand("./lib/react.b4f119cdf.development.js"),
-      "react-dom": expand("./lib/react-dom.b4f119cdf.development.js"),
-      scheduler: expand("./lib/scheduler.b4f119cdf.development.js"),
+      react: expand(`./lib/react.${reactCommit}.${buildType}.js`),
+      "react-dom": expand(`./lib/react-dom.${reactCommit}.${buildType}.js`),
+      scheduler: expand(`./lib/scheduler.${reactCommit}.${buildType}.js`),
     },
     plugins: [
       ...config.plugins,

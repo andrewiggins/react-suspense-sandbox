@@ -75,5 +75,5 @@ class App extends React.Component {
 }
 
 const container = document.getElementById("root");
-const root = ReactDOM.unstable_createRoot(container);
+const root = ReactDOM.createRoot(container);
 root.render(<App />);

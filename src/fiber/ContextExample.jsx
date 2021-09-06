@@ -45,7 +45,6 @@ const { Fragment } = React;
 
 */
 
-
 const ctx = React.createContext(null);
 
 class MyProvider extends React.Component {
@@ -74,12 +73,12 @@ class MyProvider extends React.Component {
 }
 
 const Time = () => {
-  console.log('Rendering Time');
+  console.log("Rendering Time");
   return <div>{Date.now()}</div>;
 };
 
 const MyChild = () => {
-  console.log('rendering MyChild');
+  console.log("rendering MyChild");
   return (
     <Fragment>
       {Date.now()}
@@ -95,7 +94,7 @@ const MyChild = () => {
 };
 
 export function ContextExample() {
-  console.log('rendering ContentExample');
+  console.log("rendering ContentExample");
   return (
     <Fragment>
       <h2>Context Example</h2>
