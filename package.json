@@ -7,7 +7,9 @@
   "scripts": {
     "build": "wmr build --no-minify",
     "start": "wmr --reload",
-    "lint": "prettier -w index.html \"src/**/*.{js,jsx,html,md}\" \"types/**/*\" \"lib/*\""
+    "lint": "prettier -w index.html \"src/**/*.{js,jsx,html,md}\" \"types/**/*\" \"lib/*\"",
+    "lint:dist": "prettier -w \"dist/**/*.{js,jsx,html,md}\" \"!**/lib/**\"",
+    "deploy": "node ./deploy.js && gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -28,6 +30,10 @@
   "devDependencies": {
     "@types/react": "^16.4.6",
     "@types/react-dom": "^16.0.6",
+    "cpy": "^8.1.2",
+    "del": "^6.0.0",
+    "gh-pages": "^3.2.3",
+    "prettier": "^2.3.2",
     "sass": "^1.38.2",
     "simple-code-frame": "^1.1.1",
     "sucrase": "^3.20.1",
