@@ -6,7 +6,7 @@ import { defineConfig } from "wmr";
 
 const reactCommit = "d1f51f345";
 /** @type {"development" | "profiling.min" | "production.min"} */
-const buildType = "development";
+const buildType = "production.min";
 
 // @ts-ignore
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
