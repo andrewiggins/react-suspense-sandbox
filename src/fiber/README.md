@@ -176,6 +176,34 @@ Committing/finishing work:
     - `ensureRootIsScheduled`: ensures the root of this fiber tree is scheduled
       to do some work
 
+### The UpdateQueue
+
+Whew, the update queue is complicated. We'll try to break it down per component type here.
+
+#### Host Component Update Queue
+
+The `fiber.updateQueue` for a Host Component is the update payload that contains the
+properties to update ([source](https://github.com/facebook/react/blob/86c7ca70a9965c18e504cafc24753c1edbe36749/packages/react-reconciler/src/ReactFiberCommitWork.new.js#L1856)).
+
+The `updateQueue` is used in the mutation phase.
+
+#### Function Component Update Queue
+
+For function components, the `fiber.updateQueue` is the list of effects (layout or passive) that should be invoked ([unmount source](https://github.com/facebook/react/blob/86c7ca70a9965c18e504cafc24753c1edbe36749/packages/react-reconciler/src/ReactFiberCommitWork.new.js#L491), [mount source](https://github.com/facebook/react/blob/86c7ca70a9965c18e504cafc24753c1edbe36749/packages/react-reconciler/src/ReactFiberCommitWork.new.js#L510)).
+
+This list is also included in the hooks data stored on the `memoizedState` property of a Fiber ([source](https://github.com/facebook/react/blob/86c7ca70a9965c18e504cafc24753c1edbe36749/packages/react-reconciler/src/ReactFiberHooks.new.js#L607)). The hook's `memoizedState` property holds the effect's data ([source](https://github.com/facebook/react/blob/86c7ca70a9965c18e504cafc24753c1edbe36749/packages/react-reconciler/src/ReactFiberHooks.new.js#L1545)).
+
+Each state hook also has its own queue of updates to process ([source](https://github.com/facebook/react/blob/86c7ca70a9965c18e504cafc24753c1edbe36749/packages/react-reconciler/src/ReactFiberHooks.new.js#L151)). And also have [their own processing logic](https://github.com/facebook/react/blob/86c7ca70a9965c18e504cafc24753c1edbe36749/packages/react-reconciler/src/ReactFiberHooks.new.js#L747) different from the usual `processUpdateQueue`.
+
+#### Class Component and Other's Update Queue
+
+Class component's `fiber.updateQueue` contains the queue of updates to the
+component's state, including callbacks for each state update.
+
+For other components, such as Cache components and HostRoot components, the
+`updateQueue` serves a similar purpose containing the state of the component.
+For HostRoot components, it contains the vnode to render.
+
 ### To expand
 
 - How does React manage multiple pending updates? What is the
