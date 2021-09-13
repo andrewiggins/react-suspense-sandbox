@@ -4,10 +4,12 @@ import { List } from "./List.jsx";
 import { List as ListClass } from "./List_class.jsx";
 import { ContextExample } from "./ContextExample.jsx";
 import { MemoedExample } from "./MemoedExample.jsx";
+import { Counter } from "./Counter.jsx";
 
 const examples = {
   List: List,
   "List (class)": ListClass,
+  Counter: Counter,
   Context: ContextExample,
   Memo: MemoedExample,
 };
