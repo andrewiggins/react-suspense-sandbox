@@ -1,9 +1,9 @@
 import {
   i as createRoot,
-  c as createElement$1,
+  d as createElement$1,
   e as REACT_FRAGMENT_TYPE,
   C as Component,
-} from "./chunks/react-dom.b4f119cdf.development.6444d606.js";
+} from "./chunks/react-dom.d1f51f345.profiling.min.e0b48e11.js";
 const ops = [];
 
 class Stateful extends Component {

@@ -1,9 +1,9 @@
 import {
-  c as createElement$1,
+  d as createElement$1,
   e as REACT_FRAGMENT_TYPE,
   P as PureComponent,
   i as createRoot,
-} from "./chunks/react-dom.b4f119cdf.development.6444d606.js";
+} from "./chunks/react-dom.d1f51f345.profiling.min.e0b48e11.js";
 const birdPosterUrl = "/react-suspense-sandbox/assets/bird.64324c57.jpg";
 const downsizingPosterUrl =
   "/react-suspense-sandbox/assets/downsizing.0dcb0b8a.jpg";

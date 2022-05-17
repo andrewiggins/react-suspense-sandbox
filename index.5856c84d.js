@@ -1,18 +1,18 @@
 import {
-  R as ReactSharedInternals$1,
-  m as memo,
-  c as createElement$1,
+  R as ReactSharedInternals,
   u as useState,
   a as useEffect,
   b as useLayoutEffect,
-  d as useCallback,
+  c as useCallback,
+  d as createElement$1,
   e as REACT_FRAGMENT_TYPE,
+  m as memo,
   C as Component,
   f as createContext,
   g as React,
   h as useMemo,
   i as createRoot,
-} from "./chunks/react-dom.b4f119cdf.development.6444d606.js";
+} from "./chunks/react-dom.d1f51f345.profiling.min.e0b48e11.js";
 /**
  * @license React
  *
@@ -23,24 +23,24 @@ import {
  */
 
 function unstable_scheduleCallback() {
-  return ReactSharedInternals$1.Scheduler.unstable_scheduleCallback.apply(
+  return ReactSharedInternals.Scheduler.unstable_scheduleCallback.apply(
     this,
     arguments
   );
 }
 
 const unstable_IdlePriority =
-  ReactSharedInternals$1.Scheduler.unstable_IdlePriority;
+  ReactSharedInternals.Scheduler.unstable_IdlePriority;
 
-ReactSharedInternals$1.Scheduler.unstable_ImmediatePriority;
+ReactSharedInternals.Scheduler.unstable_ImmediatePriority;
 
-ReactSharedInternals$1.Scheduler.unstable_LowPriority;
+ReactSharedInternals.Scheduler.unstable_LowPriority;
 
-ReactSharedInternals$1.Scheduler.unstable_NormalPriority;
+ReactSharedInternals.Scheduler.unstable_NormalPriority;
 
-ReactSharedInternals$1.Scheduler.unstable_UserBlockingPriority;
+ReactSharedInternals.Scheduler.unstable_UserBlockingPriority;
 
-ReactSharedInternals$1.Scheduler.unstable_Profiling;
+ReactSharedInternals.Scheduler.unstable_Profiling;
 function spin(name = "", ms = 0.1) {
   start(name);
 
@@ -494,9 +494,71 @@ function MemoedExample() {
     )
   );
 }
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return createElement$1(
+    "button",
+    {
+      className: "btn badge",
+      "data-badge": count,
+      style: { marginTop: ".5rem" },
+      onClick: () => setCount(count + 1),
+    },
+    "count: ",
+    count
+  );
+}
+
+let style = document.createElement("style");
+style.textContent = `
+.badge {
+  position: relative;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.badge.btn {
+  padding: 0.25rem 0.4rem;
+}
+
+.badge:not([data-badge]):after, .badge[data-badge]:after {
+  background: #5755d9;
+  background-clip: padding-box;
+  border-radius: .5rem;
+  box-shadow: 0 0 0 0.1rem #fff;
+  color: #fff;
+  content: attr(data-badge);
+  display: inline-block;
+  transform: translate(-.05rem,-.5rem);
+}
+
+.badge[data-badge]:after {
+  font-size: .7rem;
+  height: .9rem;
+  line-height: 1;
+  min-width: .9rem;
+  padding: .1rem .2rem;
+  text-align: center;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.badge.btn:after {
+  top: 0;
+  right: 0;
+}
+
+.badge.btn:after {
+  position: absolute;
+  transform: translate(50%,-50%);
+}
+`;
+document.head.appendChild(style);
 const examples = {
   List: List$1,
   "List (class)": List,
+  Counter: Counter,
   Context: ContextExample,
   Memo: MemoedExample,
 };
