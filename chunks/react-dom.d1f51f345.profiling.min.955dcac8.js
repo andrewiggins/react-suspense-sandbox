@@ -24155,6 +24155,7 @@ function commitRootImpl(root, renderPriorityLevel) {
       scheduleCallback$1(NormalPriority, () => {
         ReactTracer.enter("commitRoot scheduled callback");
         flushPassiveEffects();
+        ReactTracer.exit();
         return null;
       });
       ReactTracer.exit();

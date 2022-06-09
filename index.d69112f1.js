@@ -3,7 +3,7 @@ import {
   d as createElement$1,
   e as REACT_FRAGMENT_TYPE,
   C as Component,
-} from "./chunks/react-dom.d1f51f345.profiling.min.e0b48e11.js";
+} from "./chunks/react-dom.d1f51f345.profiling.min.955dcac8.js";
 const ops = [];
 
 class Stateful extends Component {
