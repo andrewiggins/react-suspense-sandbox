@@ -5,8 +5,9 @@
   "description": "Sandbox for playing around with React suspense",
   "main": "index.js",
   "scripts": {
-    "build": "wmr build --no-minify",
-    "start": "wmr --reload",
+    "build": "vite build",
+    "start": "vite",
+    "preview": "vite preview",
     "lint": "prettier -w index.html \"src/**/*.{js,jsx,html,md}\" \"types/**/*\" \"lib/*\"",
     "lint:dist": "prettier -w \"dist/**/*.{js,jsx,html,md}\" \"!**/lib/**\"",
     "deploy": "node ./deploy.js"
@@ -30,14 +31,15 @@
   "devDependencies": {
     "@types/react": "^17.0.20",
     "@types/react-dom": "^17.0.9",
+    "@vitejs/plugin-react": "^2.2.0",
     "gh-pages": "^3.2.3",
     "prettier": "^2.3.2",
-    "sass": "^1.38.2",
-    "simple-code-frame": "^1.1.1",
-    "sucrase": "^3.20.1",
-    "wmr": "^3.7.1"
+    "vite": "^3.2.4"
   },
   "dependencies": {
     "react-cache": "^2.0.0-alpha.0"
+  },
+  "volta": {
+    "node": "18.12.1"
   }
 }
