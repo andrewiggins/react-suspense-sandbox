@@ -11,6 +11,7 @@ on:
       - "**.js"
       - "**.jsx"
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   build:
@@ -25,8 +26,7 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run lint:dist
-      - run: |
-          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          npm run deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: dist
