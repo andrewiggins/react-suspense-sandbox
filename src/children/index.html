@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>React Children Sandbox</title>
+
+		<style>
+			body {
+				background-color: #1e1e1e;
+				color: #d4d4d4;
+			}
+
+			.action {
+				display: block;
+			}
+
+			[hidden] {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="actions">
+			<div>
+				<label
+					>Operation:
+					<select id="operations"></select
+				></label>
+				<button id="run" type="button">Run</button>
+				<button id="reset" type="button" hidden>Reset</button>
+			</div>
+			<div>
+				<label
+					><input id="recreate" type="checkbox" checked /> Create new container
+					for each operation</label
+				>
+			</div>
+			<div id="description"></div>
+		</div>
+		<hr />
+		<div id="initial-root" class="root"></div>
+		<script src="./index.jsx" type="module"></script>
+	</body>
+</html>
