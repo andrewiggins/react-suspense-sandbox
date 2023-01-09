@@ -1,5 +1,12 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import {
+	clearLog,
+	getLog,
+	logCall,
+	startCapture,
+	stopCapture,
+} from "./logCall";
 
 /**
  * @param {{ values: string[] }} props
@@ -137,6 +144,7 @@ const resetBtn = document.getElementById("reset");
 const recreateInput = /** @type {HTMLInputElement} */ (
 	document.getElementById("recreate")
 );
+const mutationList = document.getElementById("mutations");
 
 function setupSelect() {
 	for (let operation of operations) {
@@ -161,18 +169,30 @@ function getSelectedOperation() {
 
 function setupOperation() {
 	if (recreateInput.checked) {
-		// Create a new container to trigger mount on setup
-		const newContainer = document.createElement("div");
-		newContainer.className = "root";
-		container.after(newContainer);
-		container.remove();
-
-		ReactDOM.render(getSelectedOperation().init, newContainer);
-		container = newContainer;
+		container = createContainer();
+		ReactDOM.render(getSelectedOperation().init, container);
 	} else {
 		ReactDOM.render(getSelectedOperation().init, container);
 	}
 }
+
+function createContainer() {
+	// Create a new container to trigger mount on setup
+	const newContainer = document.createElement("div");
+	newContainer.className = "root";
+	container.after(newContainer);
+	container.remove();
+
+	clearLog();
+	mutationList.textContent = "";
+
+	return newContainer;
+}
+
+logCall(Element.prototype, "appendChild");
+logCall(Element.prototype, "insertBefore");
+logCall(Element.prototype, "removeChild");
+logCall(Element.prototype, "remove");
 
 setupSelect();
 
@@ -184,7 +204,17 @@ opSelect.addEventListener("change", () => {
 });
 
 runBtn.addEventListener("click", () => {
+	startCapture();
 	ReactDOM.render(getSelectedOperation().runs, container);
+	stopCapture();
+
+	for (let log of getLog()) {
+		const li = document.createElement("li");
+		li.textContent = log;
+		mutationList.appendChild(li);
+	}
+
+	clearLog();
 
 	runBtn.hidden = true;
 	resetBtn.hidden = false;
