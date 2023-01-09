@@ -1,35 +1,16 @@
-# editorconfig: http://editorconfig.org/
-# Help developers standarize spaces, tabs, encoding, end-line characters across editors
-# TL;DR:
-# 1) You will need a plugin for Visual Studio and VSCode (http://editorconfig.org/#download)
-# 2) Existing lines are not auto-formatted only new ones; linters will be added later to help convert existing code
-
-# top-most .editorconfig file
 root = true
 
-# defaults for all files
 [*]
+indent_style = tab
+end_of_line = lf
 charset = utf-8
-end_of_line = crlf
-indent_size = 2
-indent_style = space
-insert_final_newline = true
 trim_trailing_whitespace = true
+insert_final_newline = true
 
-# markdown, diff overrides
-# two trailing spaces are required for <br/> and hard line-breaks in markdown files
-# see: (https://daringfireball.net/projects/markdown/syntax#p) and (http://spec.commonmark.org/0.27/#hard-line-break)
-[*.{md,diff}]
-trim_trailing_whitespace = false
-
-# csproj overrides
-# Will be removed once insert_final_newline plugin bug for VS 2015 is fixed for this filetype
-# see:(https://github.com/editorconfig/editorconfig-visualstudio/issues/43)
-[*.csproj]
+[{*.json,.*rc,*.yml}]
+indent_style = space
+indent_size = 2
 insert_final_newline = false
 
-# package.json overrides
-# Updating package.json with NPM will revert indentation to 2 spaces so to
-# reduce churn, let's align to NPM and specify indent size 2
-[package.json]
-indent_size = 2
+[*.md]
+trim_trailing_whitespace = false

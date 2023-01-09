@@ -72,9 +72,9 @@ here.
 
   ```ts
   function performWorkOnRoot(
-    root: FiberRoot,
-    expirationTime: ExpirationTime,
-    isExpired: boolean
+  	root: FiberRoot,
+  	expirationTime: ExpirationTime,
+  	isExpired: boolean
   ): void;
   ```
 
@@ -85,9 +85,9 @@ here.
 
   ```ts
   function renderRoot(
-    root: FiberRoot,
-    isYieldy: boolean,
-    isExpired: boolean
+  	root: FiberRoot,
+  	isYieldy: boolean,
+  	isExpired: boolean
   ): void;
   ```
 
@@ -109,11 +109,11 @@ here.
 
   ```ts
   function onSuspend(
-    root: FiberRoot,
-    finishedWork: Fiber,
-    suspendedExpirationTime: ExpirationTime,
-    rootExpirationTime: ExpirationTime,
-    msUntilTimeout: number
+  	root: FiberRoot,
+  	finishedWork: Fiber,
+  	suspendedExpirationTime: ExpirationTime,
+  	rootExpirationTime: ExpirationTime,
+  	msUntilTimeout: number
   ): void;
   ```
 
@@ -133,9 +133,9 @@ here.
 
   ```ts
   function retrySuspendedRoot(
-    root: FiberRoot,
-    fiber: Fiber,
-    suspendedTime: ExpirationTime
+  	root: FiberRoot,
+  	fiber: Fiber,
+  	suspendedTime: ExpirationTime
   ): void;
   ```
 
@@ -148,11 +148,11 @@ here.
 
   ```ts
   function throwException(
-    root: FiberRoot,
-    returnFiber: Fiber,
-    sourceFiber: Fiber,
-    value: mixed,
-    renderExpirationTime: ExpirationTime
+  	root: FiberRoot,
+  	returnFiber: Fiber,
+  	sourceFiber: Fiber,
+  	value: mixed,
+  	renderExpirationTime: ExpirationTime
   ): void;
   ```
 

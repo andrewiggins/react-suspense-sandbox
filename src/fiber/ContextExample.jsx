@@ -48,59 +48,59 @@ const { Fragment } = React;
 const ctx = React.createContext(null);
 
 class MyProvider extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { value: 0 };
-  }
+	constructor(props) {
+		super(props);
+		this.state = { value: 0 };
+	}
 
-  toggle() {
-    this.setState(({ value }) => ({ value: (value + 1) % 2 }));
-  }
+	toggle() {
+		this.setState(({ value }) => ({ value: (value + 1) % 2 }));
+	}
 
-  render() {
-    console.log("rendering MyProvider");
-    return (
-      <Fragment>
-        <div>
-          <button onClick={() => this.toggle()}>Toggle</button>
-        </div>
-        <ctx.Provider value={this.state.value}>
-          {this.props.children}
-        </ctx.Provider>
-      </Fragment>
-    );
-  }
+	render() {
+		console.log("rendering MyProvider");
+		return (
+			<Fragment>
+				<div>
+					<button onClick={() => this.toggle()}>Toggle</button>
+				</div>
+				<ctx.Provider value={this.state.value}>
+					{this.props.children}
+				</ctx.Provider>
+			</Fragment>
+		);
+	}
 }
 
 const Time = () => {
-  console.log("Rendering Time");
-  return <div>{Date.now()}</div>;
+	console.log("Rendering Time");
+	return <div>{Date.now()}</div>;
 };
 
 const MyChild = () => {
-  console.log("rendering MyChild");
-  return (
-    <Fragment>
-      {Date.now()}
-      <Time />
-      <ctx.Consumer>
-        {(value) => {
-          return <p>{value}</p>;
-        }}
-      </ctx.Consumer>
-      <Time />
-    </Fragment>
-  );
+	console.log("rendering MyChild");
+	return (
+		<Fragment>
+			{Date.now()}
+			<Time />
+			<ctx.Consumer>
+				{(value) => {
+					return <p>{value}</p>;
+				}}
+			</ctx.Consumer>
+			<Time />
+		</Fragment>
+	);
 };
 
 export function ContextExample() {
-  console.log("rendering ContentExample");
-  return (
-    <Fragment>
-      <h2>Context Example</h2>
-      <MyProvider>
-        <MyChild />
-      </MyProvider>
-    </Fragment>
-  );
+	console.log("rendering ContentExample");
+	return (
+		<Fragment>
+			<h2>Context Example</h2>
+			<MyProvider>
+				<MyChild />
+			</MyProvider>
+		</Fragment>
+	);
 }

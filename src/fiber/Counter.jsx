@@ -1,18 +1,18 @@
 import * as React from "react";
 
 export function Counter() {
-  const [count, setCount] = React.useState(0);
+	const [count, setCount] = React.useState(0);
 
-  return (
-    <button
-      className="btn badge"
-      data-badge={count}
-      style={{ marginTop: ".5rem" }}
-      onClick={() => setCount(count + 1)}
-    >
-      count: {count}
-    </button>
-  );
+	return (
+		<button
+			className="btn badge"
+			data-badge={count}
+			style={{ marginTop: ".5rem" }}
+			onClick={() => setCount(count + 1)}
+		>
+			count: {count}
+		</button>
+	);
 }
 
 let style = document.createElement("style");

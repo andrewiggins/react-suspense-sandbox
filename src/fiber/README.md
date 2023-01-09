@@ -257,9 +257,9 @@ For HostRoot components, it contains the vnode to render.
 
   ```ts
   function renderRoot(
-    root: FiberRoot,
-    isYieldy: boolean,
-    isExpired: boolean
+  	root: FiberRoot,
+  	isYieldy: boolean,
+  	isExpired: boolean
   ): void;
   ```
 
@@ -312,9 +312,9 @@ For HostRoot components, it contains the vnode to render.
 
   ```ts
   function completeRoot(
-    root: FiberRoot,
-    finishedWork: Fiber,
-    expirationTime: ExpirationTime
+  	root: FiberRoot,
+  	finishedWork: Fiber,
+  	expirationTime: ExpirationTime
   ): void;
   ```
 
@@ -348,9 +348,9 @@ For HostRoot components, it contains the vnode to render.
 
   ```ts
   function beginWork(
-    current: Fiber | null,
-    workInProgress: Fiber,
-    renderExpirationTime: ExpirationTime
+  	current: Fiber | null,
+  	workInProgress: Fiber,
+  	renderExpirationTime: ExpirationTime
   ): Fiber | null;
   ```
 
@@ -364,9 +364,9 @@ For HostRoot components, it contains the vnode to render.
 
   ```ts
   function completeWork(
-    current: Fiber | null,
-    workInProgress: Fiber,
-    renderExpirationTime: ExpirationTime
+  	current: Fiber | null,
+  	workInProgress: Fiber,
+  	renderExpirationTime: ExpirationTime
   ): Fiber | null;
   ```
 
@@ -407,12 +407,12 @@ For HostRoot components, it contains the vnode to render.
 
   ```ts
   function commitUpdate(
-    domElement: Instance,
-    updatePayload: Array<mixed>,
-    type: string,
-    oldProps: Props,
-    newProps: Props,
-    internalInstanceHandle: Object
+  	domElement: Instance,
+  	updatePayload: Array<mixed>,
+  	type: string,
+  	oldProps: Props,
+  	newProps: Props,
+  	internalInstanceHandle: Object
   ): void;
   ```
 
@@ -422,9 +422,9 @@ For HostRoot components, it contains the vnode to render.
 
   ```ts
   function commitTextUpdate(
-    textInstance: TextInstance,
-    oldText: string,
-    newText: string
+  	textInstance: TextInstance,
+  	oldText: string,
+  	newText: string
   ): void;
   ```
 
@@ -434,8 +434,8 @@ For HostRoot components, it contains the vnode to render.
 
   ```ts
   function appendChild(
-    parentInstance: Instance,
-    child: Instance | TextInstance
+  	parentInstance: Instance,
+  	child: Instance | TextInstance
   ): void;
   ```
 
@@ -445,9 +445,9 @@ For HostRoot components, it contains the vnode to render.
 
   ```ts
   function insertBefore(
-    parentInstance: Instance,
-    child: Instance | TextInstance,
-    beforeChild: Instance | TextInstance
+  	parentInstance: Instance,
+  	child: Instance | TextInstance,
+  	beforeChild: Instance | TextInstance
   ): void;
   ```
 
@@ -457,8 +457,8 @@ For HostRoot components, it contains the vnode to render.
 
   ```ts
   function removeChild(
-    parentInstance: Instance,
-    child: Instance | TextInstance
+  	parentInstance: Instance,
+  	child: Instance | TextInstance
   ): void;
   ```
 
@@ -468,12 +468,12 @@ For HostRoot components, it contains the vnode to render.
 
   ```ts
   function prepareUpdate(
-    domElement: Instance,
-    type: string,
-    oldProps: Props,
-    newProps: Props,
-    rootContainerInstance: Container,
-    hostContext: HostContext
+  	domElement: Instance,
+  	type: string,
+  	oldProps: Props,
+  	newProps: Props,
+  	rootContainerInstance: Container,
+  	hostContext: HostContext
   ): null | Array<mixed>;
   ```
 
@@ -487,11 +487,11 @@ For HostRoot components, it contains the vnode to render.
 
   ```ts
   function diffProperties(
-    domElement: Element,
-    tag: string,
-    lastRawProps: Object,
-    nextRawProps: Object,
-    rootContainerElement: Element | Document
+  	domElement: Element,
+  	tag: string,
+  	lastRawProps: Object,
+  	nextRawProps: Object,
+  	rootContainerElement: Element | Document
   ): null | Array<mixed>;
   ```
 
@@ -501,11 +501,11 @@ For HostRoot components, it contains the vnode to render.
 
   ```ts
   function updateProperties(
-    domElement: Element,
-    updatePayload: Array<any>,
-    tag: string,
-    lastRawProps: Object,
-    nextRawProps: Object
+  	domElement: Element,
+  	updatePayload: Array<any>,
+  	tag: string,
+  	lastRawProps: Object,
+  	nextRawProps: Object
   ): void;
   ```
 
@@ -515,10 +515,10 @@ For HostRoot components, it contains the vnode to render.
 
   ```ts
   function updateDOMProperties(
-    domElement: Element,
-    updatePayload: Array<any>,
-    wasCustomComponentTag: boolean,
-    isCustomComponentTag: boolean
+  	domElement: Element,
+  	updatePayload: Array<any>,
+  	wasCustomComponentTag: boolean,
+  	isCustomComponentTag: boolean
   ): void;
   ```
 
