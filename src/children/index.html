@@ -19,7 +19,16 @@
 				display: none;
 			}
 
-			#mutations {
+			.mutation-group {
+				display: flex;
+				justify-content: space-evenly;
+			}
+
+			.mutation-group > * {
+				flex: 0 1 50%;
+			}
+
+			.mutation-group ol {
 				font-family: "Courier New", Courier, monospace;
 			}
 		</style>
@@ -46,8 +55,16 @@
 		<hr />
 		<div id="initial-root" class="root"></div>
 		<hr />
-		<h2>Mutations</h2>
-		<ol id="mutations"></ol>
+		<div class="mutation-group">
+			<div>
+				<h2>Mutations</h2>
+				<ol id="mutations"></ol>
+			</div>
+			<div>
+				<h2>Ideal Mutations</h2>
+				<ol id="ideal-mutations"></ol>
+			</div>
+		</div>
 		<script src="./index.jsx" type="module"></script>
 	</body>
 </html>
