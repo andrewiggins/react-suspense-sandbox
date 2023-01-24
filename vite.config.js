@@ -35,6 +35,7 @@ export default defineConfig({
 				fiber: expand("src/fiber/index.html"),
 				fragments: expand("src/fragments/index.html"),
 				movieApp: expand("src/movie-app/index.html"),
+				context: expand("src/context/index.html"),
 				// suspense: expand("src/suspense/index.html"),
 			},
 		},
