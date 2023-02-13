@@ -28,6 +28,7 @@ export default defineConfig({
 	build: {
 		minify: false,
 		sourcemap: true,
+		modulePreload: { polyfill: false },
 		rollupOptions: {
 			input: {
 				main: expand("index.html"),
