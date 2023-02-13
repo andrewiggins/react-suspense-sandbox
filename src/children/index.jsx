@@ -96,11 +96,20 @@ const operations = [
 		idealDom: ["<li>z.remove()", "<li>y.remove()", "<li>x.remove()"],
 	},
 	{
+		// React worst case
 		id: "move-one-to-begin",
 		label: "Move one to beginning",
 		init: <List values={["b", "c", "d", "a"]} />,
 		runs: <List values={["a", "b", "c", "d"]} />,
 		idealDom: ["<ol>bcda.insertBefore(<li>a, <li>b)"],
+	},
+	{
+		// React & Preact v10 worst case
+		id: "move-one-to-begin-longer",
+		label: "Move one to beginning (longer list)",
+		init: <List values={["a", "b", "c", "d", "e", "f"]} />,
+		runs: <List values={["a", "e", "b", "c", "d", "f"]} />,
+		idealDom: ["<ol>abcdef.insertBefore(<li>e, <li>b)"],
 	},
 	{
 		id: "move-mult-from-end-to-begin",
@@ -118,6 +127,13 @@ const operations = [
 		init: <List values={["d", "a", "b", "c"]} />,
 		runs: <List values={["a", "b", "c", "d"]} />,
 		idealDom: ["<ol>dabc.insertBefore(<li>d, Null)"],
+	},
+	{
+		id: "move-one-to-end-longer",
+		label: "Move one to end (longer list)",
+		init: <List values={["a", "b", "c", "d", "e", "f"]} />,
+		runs: <List values={["a", "c", "d", "e", "b", "f"]} />,
+		idealDom: ["<ol>abcdef.insertBefore(<li>b, <li>f)"],
 	},
 	{
 		id: "move-mult-to-end",
