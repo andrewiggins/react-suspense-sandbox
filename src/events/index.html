@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>React Children Sandbox</title>
+
+		<style>
+			body {
+				background-color: #1e1e1e;
+				color: #d4d4d4;
+			}
+
+			.action {
+				display: block;
+			}
+
+			[hidden] {
+				display: none;
+			}
+
+			.mutation-group {
+				display: flex;
+				justify-content: space-evenly;
+			}
+
+			.mutation-group > * {
+				flex: 0 1 50%;
+			}
+
+			.mutation-group ol {
+				font-family: "Courier New", Courier, monospace;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="root"></div>
+		<script src="./index.jsx" type="module"></script>
+	</body>
+</html>
