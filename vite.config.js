@@ -3,7 +3,7 @@ import { fileURLToPath } from "url";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-const reactCommit = "d1f51f345";
+const reactCommit = "b2ae9ddb3";
 /** @type {"16" | "latest"} */
 const version = "latest";
 /** @type {"development" | "profiling.min" | "production.min"} */
