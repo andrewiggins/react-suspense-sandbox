@@ -4,6 +4,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 const reactCommit = "d1f51f345";
+/** @type {"16" | "latest"} */
+const version = "latest";
 /** @type {"development" | "profiling.min" | "production.min"} */
 const buildType = "profiling.min";
 
@@ -20,9 +22,13 @@ export default defineConfig({
 	],
 	resolve: {
 		alias: {
-			react: expand(`./lib/react.${reactCommit}.${buildType}.js`),
-			"react-dom": expand(`./lib/react-dom.${reactCommit}.${buildType}.js`),
-			scheduler: expand(`./lib/scheduler.${reactCommit}.${buildType}.js`),
+			react: expand(`./lib/${version}/react.${reactCommit}.${buildType}.js`),
+			"react-dom": expand(
+				`./lib/${version}/react-dom.${reactCommit}.${buildType}.js`
+			),
+			scheduler: expand(
+				`./lib/${version}/scheduler.${reactCommit}.${buildType}.js`
+			),
 		},
 	},
 	build: {
