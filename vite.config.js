@@ -3,11 +3,39 @@ import { fileURLToPath } from "url";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-const reactCommit = "b2ae9ddb3";
-/** @type {"16" | "latest"} */
-const version = "latest";
-/** @type {"development" | "profiling.min" | "production.min"} */
-const buildType = "profiling.min";
+/**
+ * @typedef ReactFileConfig
+ * @property {"16" | "latest" | "archive"} version
+ * @property {string} commit
+ * @property {"development" | "profiling.min" | "production.min"} buildType
+ */
+
+/** @type {{ latest: ReactFileConfig; sixteen: ReactFileConfig; }} */
+const config = {
+	latest: {
+		version: "latest",
+		commit: "b2ae9ddb3",
+		buildType: "profiling.min",
+	},
+	sixteen: {
+		version: "16",
+		commit: "16-14-0",
+		buildType: "profiling.min",
+	},
+};
+
+/** @type {(config: ReactFileConfig) => Record<string, string>} */
+const getAliases = (config) => ({
+	react: expand(
+		`./lib/${config.version}/react.${config.commit}.${config.buildType}.js`
+	),
+	"react-dom": expand(
+		`./lib/${config.version}/react-dom.${config.commit}.${config.buildType}.js`
+	),
+	scheduler: expand(
+		`./lib/${config.version}/scheduler.${config.commit}.${config.buildType}.js`
+	),
+});
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const expand = (...args) => path.join(__dirname, ...args);
@@ -21,15 +49,7 @@ export default defineConfig({
 		}),
 	],
 	resolve: {
-		alias: {
-			react: expand(`./lib/${version}/react.${reactCommit}.${buildType}.js`),
-			"react-dom": expand(
-				`./lib/${version}/react-dom.${reactCommit}.${buildType}.js`
-			),
-			scheduler: expand(
-				`./lib/${version}/scheduler.${reactCommit}.${buildType}.js`
-			),
-		},
+		alias: getAliases(config.latest),
 	},
 	build: {
 		minify: false,
