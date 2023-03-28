@@ -24,6 +24,8 @@ const config = {
 	},
 };
 
+const currentConfig = config.latest;
+
 /** @type {(config: ReactFileConfig) => Record<string, string>} */
 const getAliases = (config) => ({
 	react: expand(
@@ -49,7 +51,7 @@ export default defineConfig({
 		}),
 	],
 	resolve: {
-		alias: getAliases(config.latest),
+		alias: getAliases(currentConfig),
 	},
 	build: {
 		minify: false,
@@ -59,6 +61,7 @@ export default defineConfig({
 			input: {
 				main: expand("index.html"),
 				children: expand("src/children/index.html"),
+				events: expand("src/events/index.html"),
 				fiber: expand("src/fiber/index.html"),
 				fragments: expand("src/fragments/index.html"),
 				movieApp: expand("src/movie-app/index.html"),
