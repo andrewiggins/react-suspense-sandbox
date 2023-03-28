@@ -28,11 +28,9 @@ const currentConfig = config.latest;
 
 /** @type {(config: ReactFileConfig) => Record<string, string>} */
 const getAliases = (config) => ({
+	"react-dom/client": expand(`./lib/clientAdapter.js`),
 	react: expand(
 		`./lib/${config.version}/react.${config.commit}.${config.buildType}.js`
-	),
-	"react-dom/client": expand(
-		`./lib/${config.version}/react-dom.${config.commit}.${config.buildType}.js`
 	),
 	"react-dom": expand(
 		`./lib/${config.version}/react-dom.${config.commit}.${config.buildType}.js`
