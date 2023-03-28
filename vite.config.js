@@ -62,6 +62,7 @@ export default defineConfig({
 				main: expand("index.html"),
 				children: expand("src/children/index.html"),
 				events: expand("src/events/index.html"),
+				inputs: expand("src/inputs/index.html"),
 				fiber: expand("src/fiber/index.html"),
 				fragments: expand("src/fragments/index.html"),
 				movieApp: expand("src/movie-app/index.html"),
