@@ -1,7 +1,7 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as ReactDOM from "react-dom/client";
 import { unstable_createResource as createResource } from "react-cache";
-import { unstable_scheduleCallback } from "scheduler";
+import { unstable_LowPriority, unstable_scheduleCallback } from "scheduler";
 import { getText } from "./getText.js";
 
 const readText = createResource(getText);
@@ -31,7 +31,7 @@ class App extends React.Component {
 		this.setState({ value: this.state.value + 1 });
 
 		// Low priority update to `state.valueAsync`. Could be suspended.
-		unstable_scheduleCallback(() =>
+		unstable_scheduleCallback(unstable_LowPriority, () =>
 			this.setState({ valueAsync: this.state.valueAsync + 1 })
 		);
 	};
@@ -41,7 +41,7 @@ class App extends React.Component {
 		this.setState({ value: this.state.value - 1 });
 
 		// Low priority update to `state.valueAsync`. Could be suspended.
-		unstable_scheduleCallback(() =>
+		unstable_scheduleCallback(unstable_LowPriority, () =>
 			this.setState({ valueAsync: this.state.valueAsync - 1 })
 		);
 	};

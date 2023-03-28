@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as ReactDOM from "react-dom/client";
 import { List } from "./List.jsx";
 import { List as ListClass } from "./List_class.jsx";
 import { ContextExample } from "./ContextExample.jsx";

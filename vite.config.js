@@ -31,6 +31,9 @@ const getAliases = (config) => ({
 	react: expand(
 		`./lib/${config.version}/react.${config.commit}.${config.buildType}.js`
 	),
+	"react-dom/client": expand(
+		`./lib/${config.version}/react-dom.${config.commit}.${config.buildType}.js`
+	),
 	"react-dom": expand(
 		`./lib/${config.version}/react-dom.${config.commit}.${config.buildType}.js`
 	),
