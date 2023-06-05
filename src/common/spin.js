@@ -1,4 +1,7 @@
+import { ReactTracer } from "../../lib/ReactTracer";
+
 export function spin(name = "", ms = 0.1) {
+	ReactTracer.log(name);
 	start(name);
 
 	let begin = performance.now();

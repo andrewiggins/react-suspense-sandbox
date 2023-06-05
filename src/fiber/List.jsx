@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as scheduler from "scheduler";
 import { spin } from "../common/spin.js";
+import { ReactTracer } from "../../lib/ReactTracer.js";
 
 const classes = ["", "red", "blue"];
 const getCurrentClass = (index) => classes[index];
@@ -8,7 +9,14 @@ const getNextIndex = (currentIndex) => (currentIndex + 1) % classes.length;
 
 /** @type {React.FC<{ num: number, className: string }>} */
 const MemoedListItem = React.memo(function ListItem({ num, className }) {
-	return <div className={className}>{num}</div>;
+	const ref = React.useCallback((node) => {
+		ReactTracer.log("MemoedListItem ref", node?.tagName);
+	}, []);
+	return (
+		<div className={className} ref={ref}>
+			{num}
+		</div>
+	);
 });
 MemoedListItem.displayName = "MemoedListItem";
 
@@ -45,6 +53,10 @@ export function List() {
 			spin("List.useLayoutEffect render cleanup");
 		};
 	});
+
+	const ref = React.useCallback((node) => {
+		ReactTracer.log("List ref", node?.tagName);
+	}, []);
 
 	const square = React.useCallback(() => {
 		// facebook/react#13488 seems to imply deferredUpdates is no longer necessary
@@ -83,7 +95,7 @@ export function List() {
 
 	return (
 		<React.Fragment>
-			<h2>Fiber List operations</h2>
+			<h2 ref={ref}>Fiber List operations</h2>
 			<button className="action" onClick={square}>
 				^2
 			</button>
