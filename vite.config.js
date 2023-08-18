@@ -14,7 +14,7 @@ import react from "@vitejs/plugin-react";
 const config = {
 	latest: {
 		version: "latest",
-		commit: "b2ae9ddb3",
+		commit: "fdb368d9e",
 		buildType: "profiling.min",
 	},
 	sixteen: {
