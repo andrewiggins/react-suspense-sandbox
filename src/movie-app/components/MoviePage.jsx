@@ -1,11 +1,9 @@
 import * as React from "react";
 import { Suspense } from "react";
-// import React, { Fragment, Placeholder } from "react";
-// import { createResource } from "simple-cache-provider";
+import { createResource } from "simple-cache-provider";
+import { cache } from "../cache.js";
 import Spinner from "./Spinner.jsx";
-// import { cache } from "../cache.js";
-// import { fetchMovieDetailsJSON, fetchMovieReviewsJSON } from "../api.js";
-import { movieDetailsJSON, movieReviewsJSON } from "../api/data.js";
+import { fetchMovieDetailsJSON, fetchMovieReviewsJSON } from "../api";
 
 // --------------------------
 // Invididual movie page
@@ -30,11 +28,10 @@ export default function MoviePage(props) {
 // |      |  86% liked it
 // --------------------------
 
-// const MovieDetailsResource = createResource(fetchMovieDetailsJSON);
+const MovieDetailsResource = createResource(fetchMovieDetailsJSON);
 
 function MovieDetails(props) {
-	// const movie = MovieDetailsResource.read(cache, props.id);
-	const movie = movieDetailsJSON[props.id];
+	const movie = MovieDetailsResource.read(cache, props.id);
 	return (
 		<div className="MovieDetails">
 			<MoviePoster src={movie.poster} />
@@ -44,18 +41,17 @@ function MovieDetails(props) {
 	);
 }
 
-// const ImageResource = createResource(
-// 	(src) =>
-// 		new Promise((resolve) => {
-// 			const img = new Image();
-// 			img.onload = () => resolve(src);
-// 			img.src = src;
-// 		})
-// );
+const ImageResource = createResource(
+	(src) =>
+		new Promise((resolve) => {
+			const img = new Image();
+			img.onload = () => resolve(src);
+			img.src = src;
+		})
+);
 
 function Img({ src, ...rest }) {
-	// return <img src={ImageResource.read(cache, src)} {...rest} />;
-	return <img src={src} {...rest} />;
+	return <img src={ImageResource.read(cache, src)} {...rest} />;
 }
 
 function MoviePoster(props) {
@@ -101,11 +97,10 @@ function MovieMetrics(props) {
 // |__________________________|
 // ----------------------------
 
-// const MovieReviewsResource = createResource(fetchMovieReviewsJSON);
+const MovieReviewsResource = createResource(fetchMovieReviewsJSON);
 
 function MovieReviews(props) {
-	// const reviews = MovieReviewsResource.read(cache, props.id);
-	const reviews = movieReviewsJSON[props.id];
+	const reviews = MovieReviewsResource.read(cache, props.id);
 	return (
 		<div className="MovieReviews">
 			{reviews.map((review) => (

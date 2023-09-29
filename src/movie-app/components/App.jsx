@@ -3,6 +3,9 @@ import { Suspense, PureComponent, startTransition } from "react";
 import Spinner from "./Spinner";
 import MovieListPage from "./MovieListPage";
 
+// TODO: Update App to function component and use useTransition and isPending?
+// Perhaps do that in a new app? Also look at using `use` hook for resources.
+
 const MoviePageLoader = React.lazy(() => import("./MoviePage.jsx"));
 
 // -------------------------------

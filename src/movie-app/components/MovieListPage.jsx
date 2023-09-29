@@ -1,11 +1,10 @@
 import * as React from "react";
-// import { createResource } from "simple-cache-provider";
-// import { cache } from "../cache.js";
+import { createResource } from "simple-cache-provider";
+import { cache } from "../cache.js";
 import Spinner from "./Spinner.jsx";
-// import { fetchMovieListJSON } from "../api.js";
-import { movieListJSON } from "../api/data.js";
+import { fetchMovieListJSON } from "../api";
 
-// const MovieListResource = createResource(fetchMovieListJSON);
+const MovieListResource = createResource(fetchMovieListJSON);
 
 // --------------------------
 // Movie list page
@@ -22,15 +21,7 @@ export default function MovieListPage(props) {
 		<>
 			<h1 className="MovieListPage-header">Top Box Office {"🍿"}</h1>
 			<ul className="MovieListPage-list">
-				{/* {MovieListResource.read(cache).map((movie) => (
-					<MovieListItem
-						key={movie.id}
-						{...movie}
-						onClick={() => props.onMovieClick(movie.id)}
-						isLoading={props.loadingId && movie.id === props.loadingId}
-					/>
-				))} */}
-				{movieListJSON.map((movie) => (
+				{MovieListResource.read(cache).map((movie) => (
 					<MovieListItem
 						key={movie.id}
 						{...movie}

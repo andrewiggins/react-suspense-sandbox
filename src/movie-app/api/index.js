@@ -2,15 +2,15 @@ import { movieDetailsJSON, movieListJSON, movieReviewsJSON } from "./data";
 
 const defaultDelay = 1000;
 
-export function fetchMovieDetails(id) {
+export function fetchMovieDetailsJSON(id) {
 	return delay(defaultDelay).then(() => movieDetailsJSON[id]);
 }
 
-export function fetchMovieList() {
+export function fetchMovieListJSON() {
 	return delay(defaultDelay).then(() => movieListJSON);
 }
 
-export function fetchMovieReviews(id) {
+export function fetchMovieReviewsJSON(id) {
 	return delay(defaultDelay).then(() => movieReviewsJSON[id]);
 }
 
