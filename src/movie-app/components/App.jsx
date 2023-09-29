@@ -1,20 +1,9 @@
 import * as React from "react";
 import { Suspense, PureComponent, startTransition } from "react";
-// import { unstable_deferredUpdates } from "react-dom";
-// import { createResource } from "simple-cache-provider";
-// import { cache } from "../cache";
 import Spinner from "./Spinner";
 import MovieListPage from "./MovieListPage";
 
-// const MoviePageResource = createResource(() => import("./MoviePage.jsx"));
-
-// function MoviePageLoader(props) {
-// 	const MoviePage = MoviePageResource.read(cache).default;
-// 	return <MoviePage {...props} />;
-// }
-
-// const MoviePageLoader = React.lazy(() => import("./MoviePage.jsx"));
-import MoviePageLoader from "./MoviePage.jsx";
+const MoviePageLoader = React.lazy(() => import("./MoviePage.jsx"));
 
 // -------------------------------
 // Main screen
