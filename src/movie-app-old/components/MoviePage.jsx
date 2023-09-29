@@ -6,7 +6,7 @@ import {
 	fetchMovieDetailsJSON,
 	fetchMovieReviewsJSON,
 	loadImage,
-} from "../api";
+} from "../api/index.js";
 
 // --------------------------
 // Invididual movie page

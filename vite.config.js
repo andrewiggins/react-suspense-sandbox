@@ -69,7 +69,7 @@ export default defineConfig({
 				inputs: expand("src/inputs/index.html"),
 				fiber: expand("src/fiber/index.html"),
 				fragments: expand("src/fragments/index.html"),
-				movieApp: expand("src/movie-app/index.html"),
+				movieApp: expand("src/movie-app-old/index.html"),
 				context: expand("src/context/index.html"),
 				// suspense: expand("src/suspense/index.html"),
 			},

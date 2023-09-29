@@ -1,7 +1,7 @@
 import * as React from "react";
 import { unstable_createResource as createResource } from "react-cache";
 import Spinner from "./Spinner.jsx";
-import { fetchMovieListJSON } from "../api";
+import { fetchMovieListJSON } from "../api/index.js";
 
 const MovieListResource = createResource(fetchMovieListJSON);
 

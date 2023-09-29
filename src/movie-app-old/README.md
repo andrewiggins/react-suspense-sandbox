@@ -4,8 +4,6 @@ The app from [Dan Abramov's ReactFest Suspense video](https://www.youtube.com/wa
 
 Original source: https://github.com/bvaughn/react/tree/cf25a938ea06787a20c715b817b815acf348aeb5/fixtures/suspense/io
 
-**NOTE: No suspense features are added yet to this movie-app**
-
 Perhaps [React's async fixture](https://twitter.com/dan_abramov/status/1025185531515351040)
 replaces this sandbox...
 
