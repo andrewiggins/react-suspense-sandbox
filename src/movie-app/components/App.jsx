@@ -1,14 +1,25 @@
 import * as React from "react";
-// import { CSSTransitionGroup } from 'react-transition-group';
-import Spinner from "./Spinner.jsx";
-import MovieListPage from "./MovieListPage.jsx";
-import MoviePage from "./MoviePage.jsx";
+import { Suspense, PureComponent, startTransition } from "react";
+// import { unstable_deferredUpdates } from "react-dom";
+// import { createResource } from "simple-cache-provider";
+// import { cache } from "../cache";
+import Spinner from "./Spinner";
+import MovieListPage from "./MovieListPage";
 
-// ------------------------------
+// const MoviePageResource = createResource(() => import("./MoviePage.jsx"));
+
+// function MoviePageLoader(props) {
+// 	const MoviePage = MoviePageResource.read(cache).default;
+// 	return <MoviePage {...props} />;
+// }
+
+// const MoviePageLoader = React.lazy(() => import("./MoviePage.jsx"));
+import MoviePageLoader from "./MoviePage.jsx";
+
+// -------------------------------
 // Main screen
-// ------------------------------
-
-export default class App extends React.PureComponent {
+// -------------------------------
+export default class App extends PureComponent {
 	state = {
 		currentId: null,
 		showDetail: false,
@@ -26,22 +37,25 @@ export default class App extends React.PureComponent {
 	handleMovieClick = (id) => {
 		this.setState({
 			currentId: id,
-			showDetail: true,
+		});
+		startTransition(() => {
+			this.setState({
+				showDetail: true,
+			});
 		});
 	};
 
-	handleBackClick = () => {
+	handleBackClick = () =>
 		this.setState({
 			currentId: null,
 			showDetail: false,
 		});
-	};
 
 	render() {
 		const { currentId, showDetail } = this.state;
 		return (
 			<div className="App">
-				{showDetail ? this.renderDetail(currentId) : this.renderList()}
+				{showDetail ? this.renderDetail(currentId) : this.renderList(currentId)}
 			</div>
 		);
 	}
@@ -52,34 +66,21 @@ export default class App extends React.PureComponent {
 				<button className="App-back" onClick={this.handleBackClick}>
 					{"👈"}
 				</button>
-				<MoviePage id={id} />
+				<Suspense fallback={<Spinner size="large" />}>
+					<MoviePageLoader id={id} />
+				</Suspense>
 			</>
 		);
 	}
 
-	renderList() {
-		return <MovieListPage onMovieClick={this.handleMovieClick} />;
+	renderList(loadingId) {
+		return (
+			<Suspense fallback={<Spinner size="large" />}>
+				<MovieListPage
+					loadingId={loadingId}
+					onMovieClick={this.handleMovieClick}
+				/>
+			</Suspense>
+		);
 	}
 }
-
-function NextButton(props) {
-	return (
-		<div className="next" onClick={props.onClick}>
-			<div className="next-inner">
-				{props.isLoading ? <Spinner size="small" /> : "👉"}
-			</div>
-		</div>
-	);
-}
-
-// function CrossFade(props) {
-//   return (
-//     <CSSTransitionGroup
-//       transitionName="fade"
-//       transitionEnterTimeout={400}
-//       transitionLeaveTimeout={200}
-//     >
-//       {props.children}
-//     </CSSTransitionGroup>
-//   );
-// }
