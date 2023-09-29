@@ -9,6 +9,7 @@ Latest:
 `react`: `build\oss-stable\react\umd\react.development.js`
 `react-dom`: `build\oss-stable\react-dom\umd\react-dom.development.js`
 `scheduler`: `build\oss-stable\scheduler\umd\scheduler.development.js`
+`react-cache`: `build\oss-stable\react-cache\cjs\react-cache.development.js`
 
 16:
 
@@ -21,3 +22,5 @@ so the scheduler package has been manually updated to ESM.
 
 We run prettier on the build output in this repo to make comparisons more
 consistent and less dependent on build process whitespace handling
+
+For `react-cache` we make a fake profiling build from the production build.

@@ -38,6 +38,9 @@ const getAliases = (config) => ({
 	scheduler: expand(
 		`./lib/${config.version}/scheduler.${config.commit}.${config.buildType}.js`
 	),
+	"react-cache": expand(
+		`./lib/${config.version}/react-cache.${config.commit}.${config.buildType}.js`
+	),
 });
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
