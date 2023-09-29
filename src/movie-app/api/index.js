@@ -17,6 +17,17 @@ export function fetchMovieReviewsJSON(id) {
 	return delay(defaultDelay).then(() => movieReviewsJSON[id]);
 }
 
+export function loadImage(src) {
+	const imgLoad = new Promise((resolve, reject) => {
+		const img = new Image();
+		img.onload = () => resolve(img);
+		img.onerror = reject;
+		img.src = src;
+	});
+
+	return Promise.all([imgLoad, delay(defaultDelay)]).then(() => src);
+}
+
 function delay(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
 }

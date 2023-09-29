@@ -5,6 +5,7 @@ import MovieListPage from "./MovieListPage";
 
 // TODO: Update App to function component and use useTransition and isPending?
 // Perhaps do that in a new app? Also look at using `use` hook for resources.
+// Also, provide a way to switch between full screen spinner and inline spinner.
 
 const MoviePageLoader = React.lazy(() => import("./MoviePage.jsx"));
 

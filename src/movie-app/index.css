@@ -26,6 +26,8 @@ body {
 		Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 	color: var(--color-pageText);
 	background-color: var(--color-pageBg);
+
+	overflow-y: scroll;
 }
 
 /* -------------------------------- */

@@ -2,7 +2,11 @@ import * as React from "react";
 import { Suspense } from "react";
 import { unstable_createResource as createResource } from "react-cache";
 import Spinner from "./Spinner.jsx";
-import { fetchMovieDetailsJSON, fetchMovieReviewsJSON } from "../api";
+import {
+	fetchMovieDetailsJSON,
+	fetchMovieReviewsJSON,
+	loadImage,
+} from "../api";
 
 // --------------------------
 // Invididual movie page
@@ -40,14 +44,7 @@ function MovieDetails(props) {
 	);
 }
 
-const ImageResource = createResource(
-	(src) =>
-		new Promise((resolve) => {
-			const img = new Image();
-			img.onload = () => resolve(src);
-			img.src = src;
-		})
-);
+const ImageResource = createResource(loadImage);
 
 function Img({ src, ...rest }) {
 	return <img src={ImageResource.read(src)} {...rest} />;
@@ -56,7 +53,10 @@ function Img({ src, ...rest }) {
 function MoviePoster(props) {
 	return (
 		<div className="MoviePoster">
-			<Suspense fallback={<img src={props.src} alt="poster" />}>
+			{/* Though note: since the image src isn't loading through an onscreen image,
+			the browser will download the image as low priority. So a fallback of <img src />
+			is probably a pretty good strategy, but then what's the point of this? */}
+			<Suspense fallback={<div>Loading image...</div>}>
 				<Img src={props.src} alt="poster" />
 			</Suspense>
 		</div>
