@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Suspense } from "react";
-import { createResource } from "simple-cache-provider";
-import { cache } from "../cache.js";
+import { unstable_createResource as createResource } from "react-cache";
 import Spinner from "./Spinner.jsx";
 import { fetchMovieDetailsJSON, fetchMovieReviewsJSON } from "../api";
 
@@ -31,7 +30,7 @@ export default function MoviePage(props) {
 const MovieDetailsResource = createResource(fetchMovieDetailsJSON);
 
 function MovieDetails(props) {
-	const movie = MovieDetailsResource.read(cache, props.id);
+	const movie = MovieDetailsResource.read(props.id);
 	return (
 		<div className="MovieDetails">
 			<MoviePoster src={movie.poster} />
@@ -51,7 +50,7 @@ const ImageResource = createResource(
 );
 
 function Img({ src, ...rest }) {
-	return <img src={ImageResource.read(cache, src)} {...rest} />;
+	return <img src={ImageResource.read(src)} {...rest} />;
 }
 
 function MoviePoster(props) {
@@ -100,7 +99,7 @@ function MovieMetrics(props) {
 const MovieReviewsResource = createResource(fetchMovieReviewsJSON);
 
 function MovieReviews(props) {
-	const reviews = MovieReviewsResource.read(cache, props.id);
+	const reviews = MovieReviewsResource.read(props.id);
 	return (
 		<div className="MovieReviews">
 			{reviews.map((review) => (

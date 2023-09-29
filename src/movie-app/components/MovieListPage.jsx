@@ -1,6 +1,5 @@
 import * as React from "react";
-import { createResource } from "simple-cache-provider";
-import { cache } from "../cache.js";
+import { unstable_createResource as createResource } from "react-cache";
 import Spinner from "./Spinner.jsx";
 import { fetchMovieListJSON } from "../api";
 
@@ -17,11 +16,12 @@ const MovieListResource = createResource(fetchMovieListJSON);
 // --------------------------
 
 export default function MovieListPage(props) {
+	React.useState();
 	return (
 		<>
 			<h1 className="MovieListPage-header">Top Box Office {"🍿"}</h1>
 			<ul className="MovieListPage-list">
-				{MovieListResource.read(cache).map((movie) => (
+				{MovieListResource.read().map((movie) => (
 					<MovieListItem
 						key={movie.id}
 						{...movie}
