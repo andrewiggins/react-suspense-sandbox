@@ -1,0 +1,23 @@
+import * as React from "react";
+
+/** @param {{ size: string }} props */
+export default function SpinnerOrig(props) {
+	let className = "Spinner";
+	if (props.size === "large" || props.size === "medium") {
+		className += " Spinner--big";
+	}
+	let spinner = <div className={className}>{"🌀"}</div>;
+	if (props.size === "medium") {
+		spinner = (
+			<div
+				style={{
+					position: "relative",
+					height: 200,
+				}}
+			>
+				{spinner}
+			</div>
+		);
+	}
+	return spinner;
+}

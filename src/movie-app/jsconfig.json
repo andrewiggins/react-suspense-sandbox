@@ -1,0 +1,14 @@
+{
+  "extends": "../../jsconfig.json",
+  "compilerOptions": {
+    "strict": true
+  },
+  "include": [
+    "./**/*.ts",
+    "./**/*.js",
+    "./**/*.jsx",
+    "./**/*.ts",
+    "./**/*.tsx"
+  ],
+  "exclude": ["node_modules", "dist", "lib"]
+}
