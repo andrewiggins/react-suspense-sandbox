@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useCallback, useEffect } from "react";
 import { Suspense, PureComponent, startTransition } from "react";
 import Spinner from "./Spinner";
 import MovieListPage from "./MovieListPage";
@@ -18,73 +19,58 @@ const MoviePageLoader = React.lazy(() => import("./MoviePage.jsx"));
  * @typedef {{ showDetail: true; currentId: number;  }} DetailAppState
  * @typedef {ListAppState | LoadingDetailAppState | DetailAppState} AppState
  */
-export default class App extends PureComponent {
-	/** @type {AppState} */
-	state = {
-		currentId: null,
-		showDetail: false,
-	};
+export default function App() {
+	const [state, setState] = React.useState(
+		/** @type {AppState} */ ({ showDetail: false, currentId: null })
+	);
 
-	/** @type {(prevProps: Readonly<any>, prevState: Readonly<AppState>) => void} */
-	componentDidUpdate(prevProps, prevState) {
-		if (
-			prevState.showDetail !== this.state.showDetail ||
-			prevState.currentId !== this.state.currentId
-		) {
-			window.scrollTo(0, 0);
-		}
-	}
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, [state.showDetail, state.currentId]);
 
 	/** @type {(id: number) => void} */
-	handleMovieClick = (id) => {
-		this.setState({
+	const handleMovieClick = useCallback((id) => {
+		setState({
+			showDetail: false,
 			currentId: id,
 		});
+
 		startTransition(() => {
-			this.setState({
+			setState({
 				showDetail: true,
+				currentId: id,
 			});
 		});
-	};
+	}, []);
 
-	handleBackClick = () =>
-		this.setState({
+	/** @type {() => void} */
+	const handleBackClick = useCallback(() => {
+		setState({
 			currentId: null,
 			showDetail: false,
 		});
+	}, []);
 
-	render() {
-		const { currentId, showDetail } = this.state;
-		return (
-			<div className="App">
-				{showDetail ? this.renderDetail(currentId) : this.renderList(currentId)}
-			</div>
-		);
-	}
-
-	/** @type {(id: number) => React.ReactNode} */
-	renderDetail(id) {
-		return (
-			<>
-				<button className="App-back" onClick={this.handleBackClick}>
-					{"👈"}
-				</button>
+	const { currentId, showDetail } = state;
+	return (
+		<div className="App">
+			{showDetail ? (
+				<>
+					<button className="App-back" onClick={handleBackClick}>
+						{"👈"}
+					</button>
+					<Suspense fallback={<Spinner size="large" />}>
+						<MoviePageLoader id={currentId} />
+					</Suspense>
+				</>
+			) : (
 				<Suspense fallback={<Spinner size="large" />}>
-					<MoviePageLoader id={id} />
+					<MovieListPage
+						loadingId={currentId}
+						onMovieClick={handleMovieClick}
+					/>
 				</Suspense>
-			</>
-		);
-	}
-
-	/** @type {(loadingId: number | null) => React.ReactNode} */
-	renderList(loadingId) {
-		return (
-			<Suspense fallback={<Spinner size="large" />}>
-				<MovieListPage
-					loadingId={loadingId}
-					onMovieClick={this.handleMovieClick}
-				/>
-			</Suspense>
-		);
-	}
+			)}
+		</div>
+	);
 }
