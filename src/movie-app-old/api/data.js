@@ -5,7 +5,6 @@ import womanPosterUrl from "../img/woman.jpg";
 import figuresPosterUrl from "../img/figures.jpg";
 import manPosterUrl from "../img/man.jpg";
 
-/** @type {MovieList} */
 export const movieListJSON = [
 	{ id: 1, title: "Lady Bird", rating: "99%", gross: "$52.9M", fresh: true },
 	{ id: 2, title: "Downsizing", rating: "51%", gross: "$24.5M", fresh: false },
@@ -33,7 +32,6 @@ export const movieListJSON = [
 	{ id: 6, title: "Early Man", rating: "81%", gross: "$6.8M", fresh: true },
 ];
 
-/** @type {Record<number, MovieDetails>} */
 export const movieDetailsJSON = {
 	1: {
 		title: "Lady Bird",
@@ -89,7 +87,6 @@ export const movieDetailsJSON = {
 	},
 };
 
-/** @type {Record<number, MovieReview[]>} */
 export const movieReviewsJSON = {
 	1: [
 		{

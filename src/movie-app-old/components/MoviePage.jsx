@@ -1,16 +1,16 @@
 import * as React from "react";
-import { use, Suspense } from "react";
+import { Suspense } from "react";
+import { unstable_createResource as createResource } from "react-cache";
 import Spinner from "./Spinner.jsx";
 import {
-	fetchMovieDetails,
-	fetchMovieReviews,
-	fetchImage,
+	fetchMovieDetailsJSON,
+	fetchMovieReviewsJSON,
+	loadImage,
 } from "../api/index.js";
 
 // --------------------------
-// Individual movie page
+// Invididual movie page
 // --------------------------
-/** @param {{ id: number }} props */
 export default function MoviePage(props) {
 	return (
 		<>
@@ -23,7 +23,7 @@ export default function MoviePage(props) {
 }
 
 // --------------------------
-// Individual movie details
+// Invididual movie details
 // --------------------------
 // ________
 // |      |  Moonrise Kingdom
@@ -31,9 +31,10 @@ export default function MoviePage(props) {
 // |      |  86% liked it
 // --------------------------
 
-/** @param {{ id: number; }} props */
+const MovieDetailsResource = createResource(fetchMovieDetailsJSON);
+
 function MovieDetails(props) {
-	const movie = use(fetchMovieDetails(props.id));
+	const movie = MovieDetailsResource.read(props.id);
 	return (
 		<div className="MovieDetails">
 			<MoviePoster src={movie.poster} />
@@ -43,12 +44,12 @@ function MovieDetails(props) {
 	);
 }
 
-/** @param {{ src: string; } & React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>} props */
+const ImageResource = createResource(loadImage);
+
 function Img({ src, ...rest }) {
-	return <img src={use(fetchImage(src))} {...rest} />;
+	return <img src={ImageResource.read(src)} {...rest} />;
 }
 
-/** @param {{ src: string }} props */
 function MoviePoster(props) {
 	return (
 		<div className="MoviePoster">
@@ -62,7 +63,6 @@ function MoviePoster(props) {
 	);
 }
 
-/** @param {MovieDetails} props */
 function MovieMetrics(props) {
 	return (
 		<>
@@ -87,7 +87,7 @@ function MovieMetrics(props) {
 }
 
 // ----------------------------
-// Individual movie reviews pane
+// Invididual movie reviews pane
 // ----------------------------
 //  __________________________
 // | "Good movie" - Dan       |
@@ -96,9 +96,10 @@ function MovieMetrics(props) {
 // |__________________________|
 // ----------------------------
 
-/** @param {{ id: number }} props */
+const MovieReviewsResource = createResource(fetchMovieReviewsJSON);
+
 function MovieReviews(props) {
-	const reviews = use(fetchMovieReviews(props.id));
+	const reviews = MovieReviewsResource.read(props.id);
 	return (
 		<div className="MovieReviews">
 			{reviews.map((review) => (
@@ -108,7 +109,6 @@ function MovieReviews(props) {
 	);
 }
 
-/** @param {MovieReview} props */
 function MovieReview(props) {
 	return (
 		<blockquote className="MovieReview">

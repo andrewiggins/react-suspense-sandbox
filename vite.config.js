@@ -1,4 +1,4 @@
-import path, { resolve } from "path";
+import path from "path";
 import { fileURLToPath } from "url";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
@@ -38,6 +38,9 @@ const getAliases = (config) => ({
 	scheduler: expand(
 		`./lib/${config.version}/scheduler.${config.commit}.${config.buildType}.js`
 	),
+	"react-cache": expand(
+		`./lib/${config.version}/react-cache.${config.commit}.${config.buildType}.js`
+	),
 });
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -67,6 +70,7 @@ export default defineConfig({
 				fiber: expand("src/fiber/index.html"),
 				fragments: expand("src/fragments/index.html"),
 				movieApp: expand("src/movie-app/index.html"),
+				movieAppOld: expand("src/movie-app-old/index.html"),
 				context: expand("src/context/index.html"),
 				// suspense: expand("src/suspense/index.html"),
 			},

@@ -1,6 +1,5 @@
 import * as React from "react";
 
-/** @param {{ size: string }} props */
 export default function SpinnerOrig(props) {
 	let className = "Spinner";
 	if (props.size === "large" || props.size === "medium") {

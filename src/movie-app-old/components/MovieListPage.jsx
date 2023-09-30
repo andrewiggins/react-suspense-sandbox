@@ -1,7 +1,9 @@
 import * as React from "react";
-import { use } from "react";
+import { unstable_createResource as createResource } from "react-cache";
 import Spinner from "./Spinner.jsx";
-import { fetchMovieList } from "../api/index.js";
+import { fetchMovieListJSON } from "../api/index.js";
+
+const MovieListResource = createResource(fetchMovieListJSON);
 
 // --------------------------
 // Movie list page
@@ -13,14 +15,13 @@ import { fetchMovieList } from "../api/index.js";
 // - 🤢 12% Fifty Shades Freed
 // --------------------------
 
-/** @param {{ loadingId: number | null; onMovieClick(id: number): void; }} props */
 export default function MovieListPage(props) {
-	const movieList = use(fetchMovieList());
+	React.useState();
 	return (
 		<>
 			<h1 className="MovieListPage-header">Top Box Office {"🍿"}</h1>
 			<ul className="MovieListPage-list">
-				{movieList.map((movie) => (
+				{MovieListResource.read().map((movie) => (
 					<MovieListItem
 						key={movie.id}
 						{...movie}
@@ -33,7 +34,6 @@ export default function MovieListPage(props) {
 	);
 }
 
-/** @param {{ isLoading: boolean | null | 0; onClick(): void; } & Movie} props */
 function MovieListItem(props) {
 	const opacity = props.isLoading === false ? 0.5 : 1;
 	return (
