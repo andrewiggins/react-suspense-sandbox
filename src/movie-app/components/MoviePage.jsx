@@ -1,11 +1,10 @@
 import * as React from "react";
-import { Suspense } from "react";
-import { unstable_createResource as createResource } from "react-cache";
+import { use, Suspense } from "react";
 import Spinner from "./Spinner.jsx";
 import {
-	fetchMovieDetailsJSON,
-	fetchMovieReviewsJSON,
-	loadImage,
+	fetchMovieDetails,
+	fetchMovieReviews,
+	fetchImage,
 } from "../api/index.js";
 
 // --------------------------
@@ -32,11 +31,9 @@ export default function MoviePage(props) {
 // |      |  86% liked it
 // --------------------------
 
-const MovieDetailsResource = createResource(fetchMovieDetailsJSON);
-
 /** @param {{ id: number; }} props */
 function MovieDetails(props) {
-	const movie = MovieDetailsResource.read(props.id);
+	const movie = use(fetchMovieDetails(props.id));
 	return (
 		<div className="MovieDetails">
 			<MoviePoster src={movie.poster} />
@@ -46,11 +43,9 @@ function MovieDetails(props) {
 	);
 }
 
-const ImageResource = createResource(loadImage);
-
-/** @param {React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>} props */
+/** @param {{ src: string; } & React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>} props */
 function Img({ src, ...rest }) {
-	return <img src={ImageResource.read(src)} {...rest} />;
+	return <img src={use(fetchImage(src))} {...rest} />;
 }
 
 /** @param {{ src: string }} props */
@@ -101,11 +96,9 @@ function MovieMetrics(props) {
 // |__________________________|
 // ----------------------------
 
-const MovieReviewsResource = createResource(fetchMovieReviewsJSON);
-
 /** @param {{ id: number }} props */
 function MovieReviews(props) {
-	const reviews = MovieReviewsResource.read(props.id);
+	const reviews = use(fetchMovieReviews(props.id));
 	return (
 		<div className="MovieReviews">
 			{reviews.map((review) => (

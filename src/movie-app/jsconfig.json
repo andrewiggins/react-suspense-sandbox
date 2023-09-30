@@ -1,7 +1,8 @@
 {
   "extends": "../../jsconfig.json",
   "compilerOptions": {
-    "strict": true
+    "strict": true,
+    "types": ["react/next"]
   },
   "include": [
     "./**/*.ts",

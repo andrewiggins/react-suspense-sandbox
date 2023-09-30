@@ -1,9 +1,7 @@
 import * as React from "react";
-import { unstable_createResource as createResource } from "react-cache";
+import { use } from "react";
 import Spinner from "./Spinner.jsx";
-import { fetchMovieListJSON } from "../api/index.js";
-
-const MovieListResource = createResource(fetchMovieListJSON);
+import { fetchMovieList } from "../api/index.js";
 
 // --------------------------
 // Movie list page
@@ -17,11 +15,12 @@ const MovieListResource = createResource(fetchMovieListJSON);
 
 /** @param {{ loadingId: number | null; onMovieClick(id: number): void; }} props */
 export default function MovieListPage(props) {
+	const movieList = use(fetchMovieList());
 	return (
 		<>
 			<h1 className="MovieListPage-header">Top Box Office {"🍿"}</h1>
 			<ul className="MovieListPage-list">
-				{MovieListResource.read().map((movie) => (
+				{movieList.map((movie) => (
 					<MovieListItem
 						key={movie.id}
 						{...movie}
